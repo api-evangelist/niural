@@ -1,0 +1,109 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://docs.niural.com/docs/webhook-events,
+  https://docs.niural.com/docs/webhook-event-payload,
+  https://docs.niural.com/docs/security,
+  https://docs.niural.com/docs/create-webhook-key,
+  https://docs.niural.com/docs/best-practices
+spec_type: none
+description: >-
+  Niural documents a real webhook surface but publishes NO AsyncAPI (or any other
+  machine-readable event contract) — the events, their payloads and the signature
+  scheme exist only as prose and JSON samples in the ReadMe docs. This artifact is
+  the harvested webhook catalog; it is deliberately NOT an authored AsyncAPI
+  document, because Niural has not published one.
+transport: HTTPS POST to a subscriber-configured endpoint
+subscription:
+  managed_in: Niural dashboard — Organization > Developer > Webhooks
+  fields: [webhook name, description, metadata (free-form JSON), endpoint URL, events]
+  event_selection: >-
+    Niural currently supports only "All Events" as the subscription selector — a
+    subscriber cannot filter server-side to a single event type despite the docs
+    recommending subscribing only to what you need.
+  docs: https://docs.niural.com/docs/create-webhook-key
+security:
+  signature_header: X-Niural-Signatures
+  timestamp_header: X-Niural-Timestamp
+  algorithm: HMAC-SHA256
+  signed_payload: '{body}.{timestamp}'
+  encoding: hex digest, comma-separated list of valid signatures
+  key_rotation: >-
+    The past 4 signing keys stay valid for 24 hours after rotation; generating a
+    6th key invalidates the oldest.
+  docs: https://docs.niural.com/docs/security
+delivery:
+  guarantee: at-least-once
+  duplicates: >-
+    Endpoints may receive the same event multiple times; consumers must
+    deduplicate on their side.
+  ack: Respond 200 OK immediately, then process asynchronously.
+  reliability_note: >-
+    Niural states delivery is not guaranteed and recommends reconciliation jobs
+    that periodically re-pull state from the REST API.
+payload_envelope:
+  meta: {event_type: string, organization_id: uuid, tracking_id: string}
+  resource: object — the full resource snapshot for the event
+events:
+- name: contract.status.updated
+  domain: Contracts
+  description: Triggered when a pay-on-demand contract's status is updated.
+  resource: contract
+  sample_fields:
+  - contract_id
+  - contract_status
+  - contract_type
+  - contract_title
+  - contract_document
+  - contractor_id
+  - contractor_email
+  - contractor_type
+  - contractor_address
+  - employer_id
+  - notice_period_in_days
+  - scope_of_work
+  observed_statuses: [CONTRACTOR_SIGN_PENDING]
+  rest_reconciliation: GET /contracts/{contract-id}
+- name: invoice.status.updated
+  domain: Invoices
+  description: Triggered when an invoice status is updated.
+  note: >-
+    Documented inconsistently — the event table names it "Invoice.status.updated"
+    while the sample payload's meta.event_type is "invoice.status.updated".
+  resource: invoice
+  sample_fields:
+  - invoice_id
+  - status
+  - currency
+  - total_amount
+  - issued_date
+  - due_date
+  - invoice_items
+  - payer_id
+  - payer_email
+  - payee_id
+  - contract_id
+  - contractor_id
+  observed_statuses: [PAYMENT_PROCESSING, PAYMENT_PENDING]
+  rest_reconciliation: GET /invoices/{invoice-id}
+- name: transaction.status.updated
+  domain: Transactions
+  description: Triggered when a transaction status is changed.
+  note: >-
+    Documented inconsistently — the event table names it
+    "transactions.status.updated" while the sample payload's meta.event_type is
+    "transaction.status.updated".
+  resource: transaction
+  sample_fields:
+  - associated_invoices
+  - associated_payrolls
+  - fee_amount
+  - fee_breakdown
+  - sub_total_amount
+  rest_reconciliation: GET /transactions/{transaction-id}
+gaps:
+- No AsyncAPI document, no JSON Schema for any event payload, and no event
+  catalogue endpoint — the payload shape is only inferable from three samples.
+- Event names disagree between the events table and the payload samples
+  (Invoice vs invoice, transactions vs transaction).
+- Subscriptions cannot be filtered to a single event type.

@@ -1,0 +1,89 @@
+generated: '2026-08-04'
+method: derived
+source: openapi/niural-public-api-openapi.yml + https://docs.niural.com/docs/webhook-event-payload
+description: >-
+  Entity-relationship graph for the Niural Public API, derived from the request
+  and response schemas of the 15 published operations and the webhook payload
+  samples. Niural's public surface exposes four entities and one auth object;
+  employees, payroll runs, PEO and EOR — the bulk of the product — are NOT on the
+  public API.
+entities:
+- name: organization
+  aka: employer
+  id_field: organization_id
+  id_format: uuid
+  exposed_via: []
+  note: >-
+    Never returned by a REST operation; appears only as meta.organization_id /
+    employer_id / payer_id on webhook payloads and contract objects. There is no
+    GET /organizations.
+- name: contract
+  id_field: contract_id
+  id_format: uuid
+  operations:
+  - POST /contracts
+  - GET /contracts
+  - GET /contracts/{contract-id}
+  - PATCH /contracts/{contract-id}/sign
+  - PATCH /contracts/{contract-id}/invite-contractor
+  types: [PAY_ON_DEMAND]
+  statuses_observed: [CONTRACTOR_SIGN_PENDING]
+  fields_of_note: [contract_type, contract_title, contract_status, contract_document, scope_of_work, notice_period_in_days, tags]
+- name: contractor
+  id_field: contractor_id
+  id_format: uuid
+  exposed_via: []
+  note: >-
+    Has no endpoints of its own. A contractor is created implicitly as part of
+    POST /contracts (contractor_first_name, contractor_last_name,
+    contractor_type, contractor_email, address) and can only be read back through
+    the contract that owns it.
+  types: [INDIVIDUAL, ENTITY]
+- name: invoice
+  id_field: invoice_id
+  id_format: "prefixed string — <ORG-SLUG>-<8 chars>, e.g. AUTOM-4EWB7EEM, ABCCORP-BNJZRAD7"
+  operations: [POST /invoices, GET /invoices, 'GET /invoices/{invoice-id}']
+  statuses_observed: [PAYMENT_PENDING, PAYMENT_PROCESSING]
+  fields_of_note: [currency, total_amount, issued_date, due_date, cycle_start_date, cycle_end_date, invoice_items, tags]
+- name: invoice_item
+  id_field: null
+  parent: invoice
+  fields_of_note: [item_code, description, quantity, cost_per_unit, discount_per_unit, total_amount, currency, references]
+  item_codes_observed: [CONTRACT_CREATION_FEE, NIURAL_ARMOR_SECURITY_DEPOSIT]
+- name: transaction
+  id_field: transaction_id
+  id_format: uuid
+  operations:
+  - POST /transactions
+  - POST /transaction-estimates
+  - GET /transactions
+  - GET /transactions/{transaction-id}
+  - PATCH /transactions/{transaction-id}
+  fields_of_note: [transfer_type, invoice_ids, crypto_payment_details, payment_account_id, fee_amount, fee_breakdown, sub_total_amount, associated_invoices, associated_payrolls, tags]
+- name: payment_method
+  id_field: payment_account_id
+  operations: [GET /payment-methods]
+  fields_of_note: [status, is_primary]
+- name: auth_token
+  operations: [POST /authenticate]
+  fields_of_note: [access_token, refresh_token, expires_in]
+  note: Not a persisted resource — a credential exchange result.
+relationships:
+- {from: organization, to: contract, kind: has_many, via: employer_id}
+- {from: contract, to: contractor, kind: has_one, via: contractor_id}
+- {from: contract, to: invoice, kind: has_many, via: contract_id}
+- {from: invoice, to: contract, kind: belongs_to, via: contract_id}
+- {from: invoice, to: contractor, kind: belongs_to, via: contractor_id}
+- {from: invoice, to: invoice_item, kind: has_many, via: invoice_items}
+- {from: transaction, to: invoice, kind: has_many, via: invoice_ids / associated_invoices}
+- {from: transaction, to: payment_method, kind: has_one, via: payment_account_id}
+- {from: transaction, to: payroll, kind: has_many, via: associated_payrolls, note: 'payroll is referenced but has no public endpoint or schema'}
+gaps:
+- contractor has no endpoints — it is only creatable and readable through contract.
+- payroll is referenced by transaction.associated_payrolls and is a headline
+  Niural product, but is entirely absent from the public API.
+- No employee, PEO, EOR, benefits, expense or time-tracking entity is exposed,
+  despite all of them being marketed product surfaces.
+- >-
+  No components.schemas reuse in the spec: every request and response body is
+  declared inline, so there are no named entity schemas to $ref.

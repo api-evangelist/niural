@@ -1,0 +1,94 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  openapi/niural-public-api-openapi.yml (4xx/5xx responses on all 15 operations)
+  enriched from https://docs.niural.com/docs/http-statuses
+format: custom
+description: >-
+  Niural does NOT use RFC 9457 problem+json. Every documented error is returned as
+  application/json. The published OpenAPI defines four reusable error responses
+  with a flat {error_code, message} body; the HTTP Statuses doc separately shows
+  an {"errors": [{"message": "..."}]} array envelope. Both shapes appear in the
+  provider's own documentation.
+envelope:
+  openapi: {error_code: string, message: string}
+  docs: {errors: [{message: string}]}
+  media_type: application/json
+problems:
+- status: 400
+  component: BadRequestResponse
+  title: Invalid request
+  meaning: >-
+    The server cannot process the request due to client-side errors, such as
+    malformed syntax or invalid request framing.
+  source_operations:
+  - POST /authenticate
+  - POST /contracts
+  - GET /contracts
+  - GET /contracts/{contract-id}
+  - PATCH /contracts/{contract-id}/sign
+  - PATCH /contracts/{contract-id}/invite-contractor
+  - POST /invoices
+  - POST /transactions
+  - GET /transactions
+  - GET /transactions/{transaction-id}
+  - PATCH /transactions/{transaction-id}
+  - POST /transaction-estimates
+- status: 401
+  component: null
+  title: Unauthorized
+  meaning: >-
+    The client must authenticate to get the requested response. Returned when the
+    Bearer access token is missing or expired — exchange client credentials at
+    POST /authenticate or use the refresh_token.
+  source_operations: [documented in HTTP Statuses; not enumerated per-operation in the OpenAPI]
+- status: 403
+  component: null
+  title: Forbidden
+  meaning: >-
+    The client is known but does not have permission to access the resource.
+    Unlike 401, authentication is not the issue.
+  source_operations: [documented in HTTP Statuses; not enumerated per-operation in the OpenAPI]
+- status: 404
+  component: NotFoundResponse
+  title: Resource not found
+  meaning: The server cannot find the requested resource; the URL might be incorrect.
+  source_operations:
+  - GET /contracts/{contract-id}
+  - PATCH /contracts/{contract-id}/sign
+  - PATCH /contracts/{contract-id}/invite-contractor
+  - POST /invoices
+  - GET /invoices/{invoice-id}
+  - GET /transactions/{transaction-id}
+  - PATCH /transactions/{transaction-id}
+  - POST /transaction-estimates
+- status: 422
+  component: ValidationErrorResponse
+  title: Validation error
+  meaning: >-
+    The server understands the request but cannot process the contained
+    instructions, usually due to semantic errors.
+  source_operations:
+  - POST /authenticate
+  - POST /contracts
+  - POST /invoices
+  - POST /transactions
+  - POST /transaction-estimates
+- status: 429
+  component: null
+  title: Too Many Requests
+  meaning: >-
+    The 25 requests/second token rate limit was exceeded. Additional requests
+    return 429 until the limit resets at the next cycle.
+  remediation: Space requests out rather than bursting; see rate-limits/niural-rate-limits.yml
+  source_operations: [all]
+- status: 500
+  component: ServerErrorResponse
+  title: Server error
+  meaning: An unexpected error occurred on the Niural side.
+  source_operations: [all 15 operations]
+gaps:
+- No machine-readable error-code registry is published — error_code is typed as a
+  free-form string with no enumerated values anywhere in the spec or the docs.
+- 401/403/429 are described in prose but are not declared on any operation in the
+  OpenAPI, so a generated client will not model them.

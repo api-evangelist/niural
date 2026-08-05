@@ -1,0 +1,30 @@
+generated: '2026-08-04'
+method: probed
+source: live GET probes of every Niural host (website, docs, app, sandbox API, live API)
+description: >-
+  No /.well-known/ discovery document is served on any Niural host. The marketing
+  site (Next.js) answers 404 for every well-known path; both API hosts sit behind
+  an AWS API Gateway that answers 403 "Forbidden" / "Missing Authentication Token"
+  for any unrouted path, so a well-known document could not be served there even
+  if one existed. Recorded as an honest zero — no WellKnown pointer is wired.
+hosts:
+- host: https://www.niural.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://docs.niural.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://api-sandbox.niural.com
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+- host: https://app.niural.com
+  documents:
+  - {path: /.well-known/agent-card.json, status: 405}
+found: []

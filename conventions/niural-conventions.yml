@@ -1,0 +1,121 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://docs.niural.com/docs/get-started, /requests, /responses, /http-statuses,
+  /pagination, /rate-limits, /security, /best-practices — the cross-cutting
+  request/response semantics that apply to every Niural Public API operation.
+description: >-
+  How the Niural Public API behaves across every operation: token exchange and
+  bearer auth, the data-envelope response shape, cursor pagination, the error
+  envelope, rate-limit signaling, webhook signature verification, and what
+  Niural does and does not offer for safe retries.
+
+base_url: https://api-live.niural.com
+sandbox_url: https://api-sandbox.niural.com
+api_style: REST over HTTPS, JSON requests, JSON responses
+
+authentication:
+  scheme: >-
+    Two-step. POST /authenticate with client_id + client_secret (created in the
+    Niural dashboard under Organization > Developer > API Keys) returns an
+    access_token, a refresh_token and expires_in. Send the access token on every
+    other request as "Authorization: Bearer <access_token>".
+  token_lifetime_seconds: 3600
+  refresh: refresh_token exchanges for a new access token without re-sending the client secret
+  key_rotation: Client secret is displayed once; rotating the key invalidates the previous secret.
+  docs: https://docs.niural.com/docs/authentications
+  detail: authentication/niural-authentication.yml
+
+required_headers:
+- {name: Authorization, value: "Bearer <access_token>", required: true}
+- {name: Accept, value: application/json, required: true}
+- {name: Content-Type, value: application/json, required: true}
+
+idempotency:
+  supported: false
+  mechanism: null
+  detail: >-
+    Niural publishes NO idempotency-key mechanism. The Requests page states only
+    the standard HTTP semantics — that PUT and DELETE are inherently idempotent —
+    and the webhook Best Practices page pushes idempotency onto the CONSUMER
+    ("make your event-handling idempotent... log each event you process"). There
+    is no Idempotency-Key header, no request-replay window, and no
+    Idempotency-Key parameter anywhere in the OpenAPI. A retried POST /invoices
+    or POST /transactions is not deduplicated by Niural. This is a real gap for a
+    money-movement API and no Idempotency pointer is wired.
+  docs: https://docs.niural.com/docs/requests
+
+pagination:
+  style: cursor
+  default_page_size: 20
+  request_params:
+    limit: integer — number of results per page (default cap 20)
+    next_cursor: opaque cursor string returned by the previous page
+  response_fields:
+    data.items: array of results
+    next_cursor: opaque cursor for the next page, or null when exhausted
+  applies_to: [GET /contracts, GET /invoices, GET /transactions, GET /payment-methods]
+  caveat: "Not every endpoint supports these parameters — check the operation."
+  docs: https://docs.niural.com/docs/pagination
+
+response_envelope:
+  single: '{"data": { ... }}'
+  collection: '{"data": [ ... ]}'
+  paginated: '{"data": {"items": [ ... ]}, "next_cursor": "..." | null}'
+  docs: https://docs.niural.com/docs/responses
+
+error_envelope:
+  documented_shape: '{"errors": [{"message": "path not found"}]}'
+  openapi_shape: '{"error_code": "string", "message": "string"}'
+  inconsistency: >-
+    The HTTP Statuses doc shows an errors[] array envelope while every 4xx/5xx
+    response in the published OpenAPI uses a flat {error_code, message} object.
+    Consumers should handle both.
+  detail: errors/niural-problem-types.yml
+  docs: https://docs.niural.com/docs/http-statuses
+
+rate_limiting:
+  limit: 25 requests per second, scoped to the token
+  throttled_status: 429
+  headers_published: false
+  detail: rate-limits/niural-rate-limits.yml
+  docs: https://docs.niural.com/docs/rate-limits
+
+request_tracing:
+  request_id_header: null
+  detail: >-
+    No request-id response header is documented. Webhook deliveries do carry a
+    meta.tracking_id in the payload body.
+
+versioning:
+  scheme: none-in-path
+  detail: >-
+    The OpenAPI declares info.version 1.0 and the docs branch is "1.0", but no
+    version appears in the URL path, in a header, or as a date pin. There is no
+    published version-negotiation mechanism.
+  detail_artifact: lifecycle/niural-lifecycle.yml
+
+webhooks:
+  signature_header: X-Niural-Signatures
+  timestamp_header: X-Niural-Timestamp
+  algorithm: HMAC-SHA256 over "{body}.{timestamp}"
+  key_rotation: >-
+    Up to 5 signing keys valid concurrently; a rotated key stays valid for 24
+    hours; when a 6th is generated the oldest is invalidated.
+  delivery_expectation: Respond 200 OK immediately, then process asynchronously.
+  duplicate_delivery: >-
+    At-least-once — Niural states an endpoint "may receive the same event multiple
+    times" and instructs consumers to deduplicate.
+  reconciliation: >-
+    Niural explicitly says delivery is not guaranteed and recommends periodic
+    reconciliation jobs that re-pull from the REST API.
+  detail: asyncapi/niural-webhooks.yml
+  docs: https://docs.niural.com/docs/security
+
+expansion:
+  supported: false
+metadata:
+  supported: true
+  detail: >-
+    contracts, invoices and transactions accept a free-form "tags" object on
+    create; webhook subscriptions accept a free-form JSON metadata object.

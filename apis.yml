@@ -1,18 +1,67 @@
 aid: niural
 name: Niural
-description: 'Niural is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Niural is a US-headquartered global workforce platform that unifies US payroll, PEO, employer of
+  record (EOR), agent of record (AOR), contractor management and cross-border contractor payments in
+  150+ countries inside a single system, with an AI layer (EMMA) that orchestrates payroll, compliance
+  and expense approvals. Its public developer surface — the Niural Public API, documented on ReadMe at
+  docs.niural.com — is narrower than the product: an OpenAPI 3.0.3 contract of 15 operations across
+  four resources (authentication, pay-on-demand contractor contracts, invoices and transactions),
+  served from separate sandbox and live hosts, authenticated with a client-credential exchange that
+  returns a bearer JWT, with cursor pagination, a 25 requests/second rate limit, and three
+  HMAC-SHA256-signed webhook events. Payroll, PEO, EOR and benefits are not exposed on the public API.
+image: https://www.niural.com/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/niural/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-04'
 modified: '2026-08-04'
 tags:
 - Company
-apis: []
+- Payroll
+- Human Resources
+- Employer of Record
+- Contractor Management
+- Global Payments
+- Invoicing
+- Compliance
+- Fintech
+apis:
+- aid: niural:niural-public-api
+  name: Niural Public API
+  description: >-
+    The Niural Public API provides developers with access to Niural's core services, enabling seamless
+    integration with third-party applications. Fifteen operations across Authentication, Contracts,
+    Invoices and Transactions: exchange client credentials for a bearer JWT, create and sign
+    pay-on-demand contractor contracts, invite contractors to counter-sign, raise and list invoices
+    against a contract, list payment methods, estimate a transaction's amount and fees, and initiate,
+    list, read and update the transactions that settle those invoices — including on-chain pay-by-hash
+    settlement.
+  humanURL: https://docs.niural.com/
+  baseURL: https://api-live.niural.com
+  tags:
+  - Payroll
+  - Contractor Management
+  - Invoicing
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/niural-public-api-openapi.yml
+  - type: Documentation
+    url: https://docs.niural.com/
+  - type: APIReference
+    url: https://docs.niural.com/reference/post_authenticate
+  - type: GettingStarted
+    url: https://docs.niural.com/docs/get-started
+  - type: Authentication
+    url: https://docs.niural.com/docs/authentications
+  - type: Overlay
+    url: overlays/niural-public-api-overlay.yaml
+  - type: Sandbox
+    url: sandbox/niural-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/niural-webhooks.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +69,77 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://forgeglobal.com/niural_stock/
+  url: https://www.niural.com/
+- type: DeveloperPortal
+  url: https://docs.niural.com/
+- type: Documentation
+  url: https://docs.niural.com/
+- type: APIReference
+  url: https://docs.niural.com/reference/post_authenticate
+- type: GettingStarted
+  url: https://docs.niural.com/docs/get-started
+- type: Support
+  url: https://help.niural.com/
+- type: Blog
+  url: https://www.niural.com/blogs
+- type: GitHubOrganization
+  url: https://github.com/Niural
+- type: Pricing
+  url: https://www.niural.com/pricing
+- type: SignUp
+  url: https://app.niural.com/auth/employer/register
+- type: Login
+  url: https://app.niural.com/auth/login
+- type: TermsOfService
+  url: https://www.niural.com/legal/customer-terms-of-service
+- type: PrivacyPolicy
+  url: https://www.niural.com/legal/privacy-policy
+- type: Compliance
+  url: https://trust.niural.com/
+- type: TrustCenter
+  url: security/niural-trust-center.yml
+- type: OpenAPI
+  url: openapi/niural-public-api-openapi.yml
+- type: Overlay
+  url: overlays/niural-public-api-overlay.yaml
+- type: LLMsTxt
+  url: llms/niural-llms.txt
+- type: Authentication
+  url: authentication/niural-authentication.yml
+- type: Conventions
+  url: conventions/niural-conventions.yml
+- type: ErrorCatalog
+  url: errors/niural-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/niural-lifecycle.yml
+- type: ChangeLog
+  url: changelog/niural-changelog.yml
+- type: DataModel
+  url: data-model/niural-data-model.yml
+- type: Conformance
+  url: conformance/niural-conformance.yml
+- type: RateLimits
+  url: rate-limits/niural-rate-limits.yml
+- type: Plans
+  url: plans/niural-plans-pricing.yml
+- type: Sandbox
+  url: sandbox/niural-sandbox.yml
+- type: Webhooks
+  url: asyncapi/niural-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: MCPServer
+  url: mcp/niural-mcp.yml
+- type: Packages
+  url: packages/niural-packages.yml
+- type: VulnerabilityDisclosure
+  url: security/niural-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/niural-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/niural-agentic-access.yml
+x-enrichment:
+  date: '2026-08-04'
+  status: enriched
+  artifacts_added: 25
+  pass: local-v1

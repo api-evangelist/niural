@@ -1,0 +1,44 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://docs.niural.com/ (ReadMe branch 1.0), the published OpenAPI info.version,
+  and negative probes of status/deprecation/SLA surfaces.
+description: >-
+  Niural publishes a single unversioned API surface. There is no versioning
+  scheme in the URL path or headers, no deprecation policy, no Sunset/Deprecation
+  header support, no published SLA, and no status page. The only lifecycle signal
+  the provider ships is the ReadMe docs branch label ("1.0") and info.version 1.0
+  inside the OpenAPI.
+versioning:
+  scheme: none
+  current: '1.0'
+  in_path: false
+  in_header: false
+  docs: https://docs.niural.com/docs/get-started
+  detail: >-
+    Base URLs are https://api-sandbox.niural.com/ and https://api-live.niural.com/
+    with no version segment. The docs are served from a ReadMe branch named 1.0.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  detail: No deprecation or sunset policy is published.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  probes:
+  - {url: 'https://status.niural.com/', status: 'DNS does not resolve'}
+  - {url: 'https://www.niural.com/status', status: 404}
+  - {url: 'https://niural.statuspage.io/', status: 'redirects to atlassian.com marketing — not a Niural status page'}
+environments:
+- {name: sandbox, url: 'https://api-sandbox.niural.com/', purpose: testing and development}
+- {name: production, url: 'https://api-live.niural.com/', purpose: live data}
+deprecated_operations: []
+gaps:
+- No status page — customers have no incident or uptime channel for a payroll and
+  money-movement API.
+- No deprecation policy and no Sunset/Deprecation header support, so breaking
+  changes have no announced runway.
+- No SLA published.

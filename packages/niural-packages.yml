@@ -1,0 +1,27 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  npm registry search, PyPI, and https://github.com/Niural (the org linked from
+  niural.com) — plus the full docs.niural.com/llms.txt page index.
+description: >-
+  Niural publishes no first-party client libraries in any package registry. The
+  npm registry returns zero results for "niural"; PyPI has no "niural" project;
+  the Niural GitHub org has three public repositories and all three are forks of
+  unrelated third-party projects (phosphor_flutter, sonar-flutter, a web3 Lambda
+  layer example) — none is a Niural SDK. The docs offer only raw cURL examples
+  and a Postman collection. Recorded as a verified zero; no SDKs pointer is wired.
+packages: []
+searched_registries:
+- {registry: npm, query: niural, results: 0, url: 'https://registry.npmjs.org/-/v1/search?text=niural'}
+- {registry: pypi, query: niural, results: 404, url: 'https://pypi.org/pypi/niural/json'}
+- {registry: github, org: Niural, repos: 3, official_sdks: 0, url: 'https://github.com/Niural'}
+github_org:
+  url: https://github.com/Niural
+  public_repos: 3
+  repositories:
+  - {name: web3-lambda-layer, note: fork — example Lambda layer containing web3.js}
+  - {name: phosphor_flutter, note: fork — third-party Flutter icon family}
+  - {name: sonar-flutter, note: fork — third-party SonarQube plugin for Dart}
+gaps:
+- No official SDK in any language for a REST API that moves payroll money.
+- Nothing in the GitHub org is Niural-authored; the org is a fork holder.

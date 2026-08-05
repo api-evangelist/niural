@@ -1,0 +1,23 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.niural.com/changelog/welcome-to-niural
+description: >-
+  Niural's developer hub exposes a ReadMe changelog section, but it carries a
+  single non-substantive entry ("Welcome to Niural"). No dated API change entries,
+  release notes, or breaking-change notices are published. Recorded as present but
+  effectively empty.
+scheme: none
+current_version: '1.0'
+url: https://docs.niural.com/changelog
+entries:
+- title: Welcome to Niural
+  url: https://docs.niural.com/changelog/welcome-to-niural
+  date: null
+  breaking: []
+  additions: []
+  highlights:
+  - Welcome message for the Niural developer hub. No API changes recorded.
+gaps:
+- The changelog has never carried an API change entry, so there is no way for an
+  integrator to detect what changed between releases.
+- Docs pages carry an updatedAt of 2025-09-17/18 with no corresponding changelog note.

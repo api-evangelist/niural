@@ -1,0 +1,39 @@
+generated: '2026-08-04'
+method: generated
+source: >-
+  Packaged Agent Skills generated from the harvested Niural Public API OpenAPI
+  (openapi/niural-public-api-openapi.yml). Every step names a real path+method
+  verified verbatim in that spec. Note that Niural declares an operationId on
+  only 3 of its 15 operations, so steps are addressed by METHOD + PATH; the
+  operationIds our overlay proposes are listed separately and are not the
+  provider's own.
+  Cross-cutting rules cite ../conventions/, ../errors/, ../rate-limits/ and
+  ../authentication/.
+skills:
+- file: niural-onboard-contractor.md
+  name: Onboard a contractor onto a pay-on-demand contract
+  api: openapi/niural-public-api-openapi.yml
+  operations:
+  - POST /authenticate
+  - POST /contracts
+  - PATCH /contracts/{contract-id}/sign
+  - PATCH /contracts/{contract-id}/invite-contractor
+  - GET /contracts/{contract-id}
+- file: niural-invoice-and-pay-contractor.md
+  name: Invoice a contract and settle it with a transaction
+  api: openapi/niural-public-api-openapi.yml
+  operations:
+  - POST /authenticate
+  - POST /invoices
+  - GET /payment-methods
+  - POST /transaction-estimates
+  - POST /transactions
+  - GET /transactions/{transaction-id}
+- file: niural-reconcile-webhook-events.md
+  name: Reconcile webhook events against the REST API
+  api: openapi/niural-public-api-openapi.yml
+  operations:
+  - POST /authenticate
+  - GET /contracts
+  - GET /invoices
+  - GET /transactions

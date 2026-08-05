@@ -1,0 +1,57 @@
+# Niural Documentation
+
+> Documentation for Niural
+
+## Guides
+- [What is Niural?](https://docs.niural.com/docs/niural-openapi-guide.md): Niural simplifies global workforce management, Payroll, EOR, AOR and contractor payments  compliantly with AI-driven insights and automation. Through unified API solutions, Niural empowers businesses to scale seamlessly across borders with enhanced accuracy, compliance, and cost-efficiency.
+- [Get Started](https://docs.niural.com/docs/get-started.md)
+- [Auth Keys](https://docs.niural.com/docs/auth-keys.md): Get your API credentials to start using Niural's Open APIs.
+- [Authentication](https://docs.niural.com/docs/authentications.md)
+- [Requests](https://docs.niural.com/docs/requests.md)
+- [HTTP Statuses](https://docs.niural.com/docs/http-statuses.md)
+- [Responses](https://docs.niural.com/docs/responses.md)
+- [Rate Limits](https://docs.niural.com/docs/rate-limits.md)
+- [Pagination](https://docs.niural.com/docs/pagination.md): Discover how to retrieve smaller sets of results, navigate through pages, and sort large collections of resources using  the Niural Open API.
+- [Postman Collection](https://docs.niural.com/docs/postman-collection.md)
+- [Pay on Demand Contract](https://docs.niural.com/docs/create-a-pay-on-demand-contract.md)
+- [Sign Contract](https://docs.niural.com/docs/sign-a-contract.md)
+- [Invite Contractor](https://docs.niural.com/docs/invite-a-contractor.md): Learn how to invite a contractor to sign the contract and complete the contract creation process
+- [Create Invoice](https://docs.niural.com/docs/create-invoice.md)
+- [Get Single Invoice](https://docs.niural.com/docs/get-single-invoice.md)
+- [Get Invoices](https://docs.niural.com/docs/get-invoices.md)
+- [Initiate New Transaction](https://docs.niural.com/docs/initiate-new-transaction.md)
+- [Get Transaction](https://docs.niural.com/docs/get-transaction.md)
+- [Get Transactions](https://docs.niural.com/docs/get-transactions.md)
+- [Get Estimates For Transaction](https://docs.niural.com/docs/get-estimates-for-transaction.md)
+- [Get Payment Method](https://docs.niural.com/docs/get-payment-method.md)
+- [Create Webhook Key](https://docs.niural.com/docs/create-webhook-key.md)
+- [Use Cases](https://docs.niural.com/docs/use-cases.md)
+- [Best Practices](https://docs.niural.com/docs/best-practices.md)
+- [Security](https://docs.niural.com/docs/security.md)
+- [Webhook Events](https://docs.niural.com/docs/webhook-events.md)
+- [Webhook Event Payload](https://docs.niural.com/docs/webhook-event-payload.md): This document provides sample for the data that will be sent in the post request body when different events happen at Niural.
+
+## API Reference
+- [Obtain Auth token](https://docs.niural.com/reference/post_authenticate.md): Exchange the client credentials (ID and secret) for an auth token. Use the auth token in the Authorization header for requests to other endpoints.
+- [Create a new contract](https://docs.niural.com/reference/post_contracts.md): Create a new contract
+- [Get contracts](https://docs.niural.com/reference/get_contracts.md): Get a list of contracts
+- [Get a Contract](https://docs.niural.com/reference/get_contracts-contract-id.md): Get contract details by contract ID
+- [Sign a Contract](https://docs.niural.com/reference/patch_contracts-contract-id-sign.md): Sign a contract by employer
+- [Invite a Contractor to Sign a Contract](https://docs.niural.com/reference/patch_contracts-contract-id-invite-contractor.md): Invite a contractor to sign a contract by contract ID
+- [Create an invoice](https://docs.niural.com/reference/createinvoice.md)
+- [Get a list of invoices](https://docs.niural.com/reference/listinvoices.md)
+- [Get a single invoice](https://docs.niural.com/reference/getinvoice.md)
+- [Get payment methods](https://docs.niural.com/reference/get_payment-methods.md): Get a list of payment methods
+- [Get estimates for a transaction](https://docs.niural.com/reference/post_transaction-estimates.md): Calculate estimated amount and fees for a transaction
+- [Initiate a new transaction](https://docs.niural.com/reference/post_transactions.md): Initiate a new transaction
+- [Get transactions](https://docs.niural.com/reference/get_transactions.md): Get a list of transactions
+- [Get a Transaction](https://docs.niural.com/reference/get_transactions-transaction-id.md): Get transaction details by contract ID
+- [Update a pay by hash transaction](https://docs.niural.com/reference/patch_transactions-transaction-id.md): Update a pay by hash transaction
+
+## Pages
+- [Basic](https://docs.niural.com/hello-this-is-custom-page.md)
+- [ok](https://docs.niural.com/ok.md)
+- [Page Not Found](https://docs.niural.com/page-not-found.md)
+
+## Changelog
+- [Welcome to Niural](https://docs.niural.com/changelog/welcome-to-niural.md)

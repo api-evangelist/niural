@@ -1,0 +1,75 @@
+generated: '2026-08-04'
+method: derived
+status: candidate
+source: openapi/niural-public-api-openapi.yml
+description: >-
+  Niural operates no hosted or remote MCP server. Searched docs.niural.com (full
+  llms.txt page index), niural.com, the Niural GitHub org, npm and the public MCP
+  registries — no result; mcp.niural.com does not resolve. This is a CANDIDATE
+  tool surface derived mechanically from the 15 operations in the published
+  Niural Public API OpenAPI. No MCP endpoint is implied to exist. Every tool
+  inherits its real input contract from the parameters and requestBody of the
+  operation it names.
+server:
+  name: niural
+  transport: http
+  url: null
+auth:
+  note: >-
+    Every tool other than obtain_auth_token requires a bearer access token from
+    POST /authenticate (client_id + client_secret), valid 3600 seconds.
+tools:
+- name: obtain_auth_token
+  description: Exchange client credentials for a bearer access token and refresh token.
+  source_operation: openapi/niural-public-api-openapi.yml#POST /authenticate
+- name: create_contract
+  description: Create a new pay-on-demand contract for a contractor.
+  source_operation: openapi/niural-public-api-openapi.yml#POST /contracts
+- name: list_contracts
+  description: List contracts, filterable by contract type, contractor and status.
+  source_operation: openapi/niural-public-api-openapi.yml#GET /contracts
+- name: get_contract
+  description: Get a single contract by contract id.
+  source_operation: openapi/niural-public-api-openapi.yml#GET /contracts/{contract-id}
+- name: sign_contract
+  description: Sign a contract as the employer.
+  source_operation: openapi/niural-public-api-openapi.yml#PATCH /contracts/{contract-id}/sign
+- name: invite_contractor
+  description: Invite a contractor to sign a contract.
+  source_operation: openapi/niural-public-api-openapi.yml#PATCH /contracts/{contract-id}/invite-contractor
+- name: create_invoice
+  description: Create an invoice against a contract.
+  source_operation: openapi/niural-public-api-openapi.yml#createInvoice
+- name: list_invoices
+  description: List invoices, filterable by contract and invoice status.
+  source_operation: openapi/niural-public-api-openapi.yml#listInvoices
+- name: get_invoice
+  description: Get a single invoice by invoice id.
+  source_operation: openapi/niural-public-api-openapi.yml#getInvoice
+- name: list_payment_methods
+  description: List available payment methods for the organisation.
+  source_operation: openapi/niural-public-api-openapi.yml#GET /payment-methods
+- name: estimate_transaction
+  description: Calculate the estimated amount and fees for a transaction before initiating it.
+  source_operation: openapi/niural-public-api-openapi.yml#POST /transaction-estimates
+- name: initiate_transaction
+  description: Initiate a new transaction paying one or more invoices.
+  source_operation: openapi/niural-public-api-openapi.yml#POST /transactions
+- name: list_transactions
+  description: List transactions, filterable by transaction status.
+  source_operation: openapi/niural-public-api-openapi.yml#GET /transactions
+- name: get_transaction
+  description: Get a single transaction by transaction id.
+  source_operation: openapi/niural-public-api-openapi.yml#GET /transactions/{transaction-id}
+- name: update_pay_by_hash_transaction
+  description: Attach an on-chain payment hash and chain id to a pay-by-hash transaction.
+  source_operation: openapi/niural-public-api-openapi.yml#PATCH /transactions/{transaction-id}
+agent_safety_note: >-
+  initiate_transaction moves real money and Niural publishes no idempotency-key
+  mechanism, so a retried call is not deduplicated. Any agent binding must treat
+  it as non-retryable and confirm via list_transactions. See
+  agentic-access/niural-agentic-access.yml.
+crosswalk_note: >-
+  No mcp/niural-tool-crosswalk.yml is emitted. A crosswalk records divergence
+  between a real MCP/GraphQL surface and the REST core; here the candidate tool
+  list is derived 1:1 from the OpenAPI, so a crosswalk would carry no information.

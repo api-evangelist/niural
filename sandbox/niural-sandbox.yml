@@ -1,0 +1,67 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://docs.niural.com/docs/get-started,
+  https://docs.niural.com/docs/postman-collection,
+  https://docs.niural.com/docs/auth-keys
+description: >-
+  Niural ships a genuinely separate sandbox environment on its own host, plus a
+  downloadable Postman collection and environment for it. It publishes NO magic
+  test values (no test card numbers, no test bank accounts, no simulated
+  identifiers), no test clocks, and no fixture/trigger tooling — a sandbox
+  integration has to create its own contracts and invoices to have anything to
+  act on.
+environments:
+- name: sandbox
+  base_url: https://api-sandbox.niural.com/
+  purpose: >-
+    Testing. Experiment with API calls and understand system behaviour without
+    impacting live production data. Recommended for all initial integrations,
+    testing and development.
+- name: production
+  base_url: https://api-live.niural.com/
+  purpose: Live data. Requests directly affect real payroll and money movement.
+separation:
+  mechanism: separate hostname
+  key_prefixes: none published
+  detail: >-
+    There is no test-mode key prefix (no sk_test_/sk_live_ style marker). Test vs
+    live is selected purely by which host you call; the docs do not say whether a
+    single client_id/client_secret pair works against both hosts or whether
+    separate credentials are issued per environment.
+credentials:
+  created_in: Niural dashboard — Organization > Developer > API Keys
+  flow: client_id + client_secret exchanged at POST /authenticate for a bearer token
+  secret_visibility: Client secret is shown once at creation; recover only by rotating the key.
+  docs: https://docs.niural.com/docs/auth-keys
+tooling:
+- name: Niural Postman Collection
+  description: >-
+    Downloadable Postman collection and environment variables for exercising the
+    Niural APIs in the Sandbox environment.
+  url: https://api-sandbox.niural.com/postman/collection.json
+  docs: https://docs.niural.com/docs/postman-collection
+  x-evidence:
+    fetched: '2026-08-04'
+    http_status: 403
+    body: '{"message":"Missing Authentication Token"}'
+    note: >-
+      The download link the docs publish returns 403 from the API Gateway to an
+      anonymous client, so the collection could not be harvested. Either it is
+      auth-gated (undocumented) or the link is stale.
+- name: ReadMe API Explorer
+  description: >-
+    Every reference page at docs.niural.com carries an in-browser "Try It"
+    explorer (x-readme.explorer-enabled) that proxies live calls.
+  url: https://docs.niural.com/reference/post_authenticate
+test_values: []
+test_clocks:
+  supported: false
+fixtures:
+  supported: false
+gaps:
+- No published test data of any kind — no sample contractor, no test payment
+  method, no test invoice, no seeded sandbox organisation.
+- No way to simulate a webhook event or force a status transition, so the three
+  documented webhook events cannot be exercised deterministically in sandbox.
+- The one downloadable artifact Niural links (the Postman collection) 403s.

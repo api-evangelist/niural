@@ -1,0 +1,2400 @@
+openapi: 3.0.3
+info:
+  title: Niural Public API
+  version: '1.0'
+  description: The Niural Public API provides developers with access to Niural's core services, enabling
+    seamless integration with third-party applications.
+servers:
+- url: https://api-sandbox.niural.com
+  description: Sandbox environment
+- url: https://api-live.niural.com
+  description: Live environment
+security:
+- BearerAuth: []
+paths:
+  /invoices:
+    post:
+      summary: Create an invoice
+      operationId: createInvoice
+      tags:
+      - Invoices
+      requestBody:
+        description: Invoice to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              title: InvoiceCreateRequest
+              properties:
+                contract_id:
+                  description: The unique identifier for the contract
+                  example: 123e4567-e89b-12d3-a456-426614174000
+                  title: Contract ID
+                  type: string
+                currency:
+                  anyOf:
+                  - title: FiatCurrency
+                    enum:
+                    - AFN
+                    - EUR
+                    - ALL
+                    - DZD
+                    - USD
+                    - AOA
+                    - XCD
+                    - AAD
+                    - ARS
+                    - AMD
+                    - AWG
+                    - AUD
+                    - AZN
+                    - BHD
+                    - BDT
+                    - BBD
+                    - BYN
+                    - BZD
+                    - XOF
+                    - BMD
+                    - BTN
+                    - BOB
+                    - BAM
+                    - BWP
+                    - NOK
+                    - BRL
+                    - BND
+                    - BGN
+                    - BIF
+                    - KHR
+                    - XAF
+                    - CAD
+                    - CVE
+                    - KYD
+                    - CLP
+                    - CNY
+                    - CNH
+                    - COP
+                    - KMF
+                    - NZD
+                    - CRC
+                    - HRK
+                    - CUP
+                    - ANG
+                    - CZK
+                    - CDF
+                    - DKK
+                    - DJF
+                    - DOP
+                    - EGP
+                    - ERN
+                    - ETB
+                    - FKP
+                    - FJD
+                    - XPF
+                    - GMD
+                    - GEL
+                    - GHS
+                    - GIP
+                    - GTQ
+                    - GBP
+                    - GNF
+                    - GYD
+                    - HTG
+                    - HNL
+                    - HKD
+                    - HUF
+                    - ISK
+                    - INR
+                    - IDR
+                    - IRR
+                    - IQD
+                    - ILS
+                    - JMD
+                    - JPY
+                    - JOD
+                    - KZT
+                    - KES
+                    - KWD
+                    - KGS
+                    - LAK
+                    - LBP
+                    - LSL
+                    - LRD
+                    - LYD
+                    - CHF
+                    - MOP
+                    - MGA
+                    - MWK
+                    - MYR
+                    - MVR
+                    - MRO
+                    - MUR
+                    - MXN
+                    - MDL
+                    - MNT
+                    - MAD
+                    - MZN
+                    - MMK
+                    - NAD
+                    - NPR
+                    - NIO
+                    - NGN
+                    - KPW
+                    - MKD
+                    - OMR
+                    - PKR
+                    - PAB
+                    - PGK
+                    - PYG
+                    - PEN
+                    - PHP
+                    - PLN
+                    - QAR
+                    - RON
+                    - RUB
+                    - RWF
+                    - SHP
+                    - WST
+                    - STD
+                    - SAR
+                    - RSD
+                    - SCR
+                    - SLL
+                    - SGD
+                    - SBD
+                    - SOS
+                    - ZAR
+                    - KRW
+                    - SSP
+                    - LKR
+                    - SDG
+                    - SRD
+                    - SZL
+                    - SEK
+                    - SYP
+                    - TWD
+                    - TJS
+                    - TZS
+                    - THB
+                    - BSD
+                    - TOP
+                    - TTD
+                    - TND
+                    - TRY
+                    - TMT
+                    - UGX
+                    - UAH
+                    - AED
+                    - UYU
+                    - UZS
+                    - VUV
+                    - VES
+                    - VND
+                    - YER
+                    - ZMW
+                    - ZWL
+                    type: string
+                  - title: CryptoToken
+                    enum:
+                    - USDT
+                    - USDC
+                    - USDS
+                    - MATIC
+                    - BUSD
+                    - DAI
+                    - WMATIC
+                    - AVAX
+                    - ETH
+                    - OP
+                    - BNB
+                    - USDGLO
+                    - USDTe
+                    - USDCe
+                    type: string
+                  description: The currency in which the invoice is issued
+                  example: USD
+                  title: Currency
+                invoice_title:
+                  description: The title of the invoice
+                  example: Consulting Services Invoice
+                  title: Invoice Title
+                  type: string
+                amount:
+                  description: The total amount of the invoice
+                  example: 1500
+                  title: Amount
+                  type: string
+                cycle_start_date:
+                  default: null
+                  description: The start date of the billing cycle
+                  example: '2023-01-01'
+                  title: Cycle Start Date
+                  nullable: true
+                  format: date
+                  type: string
+                cycle_end_date:
+                  default: null
+                  description: The end date of the billing cycle
+                  example: '2023-01-31'
+                  title: Cycle End Date
+                  nullable: true
+                  format: date
+                  type: string
+                issued_date:
+                  description: The date when the invoice was issued
+                  example: '2023-02-01'
+                  format: date
+                  title: Issued Date
+                  type: string
+                due_date:
+                  description: The date by which the invoice should be paid
+                  example: '2023-02-15'
+                  format: date
+                  title: Due Date
+                  type: string
+                tags:
+                  default: {}
+                  description: Additional data you would like to provide on the resource.
+                  example: {}
+                  title: Tags
+                  nullable: true
+                  type: object
+              required:
+              - contract_id
+              - currency
+              - invoice_title
+              - amount
+              - issued_date
+              - due_date
+              type: object
+      responses:
+        '200':
+          description: Invoice created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/paths/~1invoices/get/responses/200/content/application~1json/schema/properties/data'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '422':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+    get:
+      summary: Get a list of invoices
+      operationId: listInvoices
+      tags:
+      - Invoices
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Number of items to fetch. Default is 20
+      - name: next_cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Get the next set of items from the cursor provided in the previous response if any
+      - name: contract_type
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter invoices by the type of contract
+      - name: contract_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter invoices by the contract ID
+      - name: invoice_status
+        in: query
+        required: false
+        schema:
+          title: InvoiceStatus
+          enum:
+          - DRAFT
+          - UNDER_APPROVAL
+          - PAYMENT_PENDING
+          - OVERDUE
+          - PAYMENT_PROCESSING
+          - PAYMENT_FAILED
+          - RECEIVED_BY_NIURAL
+          - PAYOUT_PROCESSING
+          - PAYOUT_FAILED
+          - PAID
+          - VOID
+          - REJECTED
+          type: string
+        description: Filter invoices by their status
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: InvoiceSingleResponse
+                    properties:
+                      invoice_id:
+                        description: The unique identifier for the invoice
+                        title: Invoice ID
+                        type: string
+                      currency:
+                        anyOf:
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                        description: The currency in which the invoice is issued
+                        title: Currency
+                      status:
+                        $ref: '#/paths/~1invoices/get/parameters/4/schema'
+                        description: The current status of the invoice
+                        title: Status
+                      total_amount:
+                        description: The total amount of the invoice
+                        title: Total Amount
+                        type: string
+                      issued_date:
+                        description: The date when the invoice was issued
+                        format: date
+                        title: Issued Date
+                        type: string
+                      due_date:
+                        description: The date by which the invoice should be paid
+                        format: date
+                        title: Due Date
+                        type: string
+                      invoice_items:
+                        default: []
+                        description: The list of items included in the invoice
+                        items:
+                          title: GeneralInvoiceItemDBModel
+                          properties:
+                            description:
+                              title: Description
+                              type: string
+                            quantity:
+                              default: 1
+                              exclusiveMinimum: true
+                              title: Quantity
+                              type: number
+                              minimum: 0
+                            item_code:
+                              default: null
+                              nullable: true
+                              title: InvoiceItemCode
+                              enum:
+                              - NIURAL_PLATFORM_FEE
+                              - NIURAL_ARMOR_SECURITY_DEPOSIT
+                              - SELF_CONTRACT
+                              - NIURAL_CONTRACT
+                              - NIURAL_ARMOR
+                              - CONTRACT_CREATION_FEE
+                              - EMPLOYER_OF_RECORD
+                              - NIURAL_PAY_FEE
+                              - BENEFIT_MASTER_INVOICE
+                              - BACKGROUND_CHECK
+                              - SIGNING_BONUS
+                              - EOR_SECURITY_DEPOSIT
+                              - EOR_SALES_TAX
+                              - SUTA_TAX_RECONC
+                              - FUTA_TAX_RECONC
+                              - EXTRA_PAYMENT
+                              - CREDIT_REDUCTION_TAX
+                              - SDI_TAX
+                              - PMFL_TAX
+                              - EXPENSE_TAX
+                              - PF_CONTRIBUTION
+                              - EOR_EMPLOYEE_SALARY
+                              - EOR_EMPLOYER_TAX
+                              - EOR_ADDITIONAL_COMPENSATION
+                              - EOR_FIXED_ALLOWANCES
+                              - EOR_BENEFITS
+                              - EOR_ADJUSTMENTS
+                              - EOR_HEALTH_BENEFIT_MANAGEMENT_FEE
+                              - EOR_RETIREMENT_BENEFITS_MANAGEMENT_FEE
+                              - EOR_BENEFITS_MANAGEMENT_FEE
+                              - EOR_EXPENSE
+                              - PAY_ON_DEMAND
+                              type: string
+                            cost_per_unit:
+                              title: Cost Per Unit
+                              type: number
+                            discount_per_unit:
+                              default: 0
+                              minimum: 0
+                              title: Discount Per Unit
+                              type: number
+                            total_discount:
+                              default: 0
+                              minimum: 0
+                              title: Total Discount
+                              type: number
+                            total_amount:
+                              default: 0
+                              minimum: 0
+                              title: Total Amount
+                              type: number
+                            currency:
+                              anyOf:
+                              - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                              - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                              title: Currency
+                            references:
+                              default: []
+                              title: References
+                              nullable: true
+                              items:
+                                type: object
+                              type: array
+                            breakdown:
+                              default: null
+                              title: Breakdown
+                              nullable: true
+                              type: object
+                            invoice_item_pdf:
+                              default: null
+                              nullable: true
+                              $ref: '#/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data/properties/contract_document'
+                          required:
+                          - description
+                          - cost_per_unit
+                          - currency
+                          type: object
+                        title: Invoice Items
+                        type: array
+                      payer_id:
+                        description: The unique identifier for the payer
+                        title: Payer ID
+                        type: string
+                      payer_name:
+                        description: The name of the payer
+                        title: Payer Name
+                        type: string
+                      payer_email:
+                        description: The email address of the payer
+                        format: email
+                        title: Payer Email
+                        type: string
+                      payee_id:
+                        default: null
+                        description: The unique identifier for the payee
+                        title: Payee ID
+                        nullable: true
+                        type: string
+                      payee_name:
+                        default: null
+                        description: The name of the payee
+                        title: Payee Name
+                        nullable: true
+                        type: string
+                      payee_email:
+                        default: null
+                        description: The email address of the payee
+                        title: Payee Email
+                        nullable: true
+                        format: email
+                        type: string
+                      invoice_title:
+                        default: null
+                        description: The title of the invoice
+                        title: Invoice Title
+                        nullable: true
+                        type: string
+                      contract_id:
+                        default: null
+                        description: The unique identifier for the contract
+                        title: Contract ID
+                        nullable: true
+                        type: string
+                      contractor_id:
+                        default: null
+                        description: The unique identifier for the contractor
+                        title: Contractor ID
+                        nullable: true
+                        type: string
+                      cycle_start_date:
+                        default: null
+                        description: The start date of the billing cycle
+                        title: Cycle Start Date
+                        nullable: true
+                        format: date
+                        type: string
+                      cycle_end_date:
+                        default: null
+                        description: The end date of the billing cycle
+                        title: Cycle End Date
+                        nullable: true
+                        format: date
+                        type: string
+                      tags:
+                        default: {}
+                        description: Additional data provided on the resource during creation.
+                        example: {}
+                        title: Tags
+                        nullable: true
+                        type: object
+                    required:
+                    - invoice_id
+                    - currency
+                    - status
+                    - total_amount
+                    - issued_date
+                    - due_date
+                    - payer_id
+                    - payer_name
+                    - payer_email
+                    type: object
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /contracts/{contract-id}:
+    get:
+      tags:
+      - Contracts
+      summary: Get a Contract
+      description: 'Get contract details by contract ID
+
+        '
+      parameters:
+      - name: contract-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the contract to retrieve
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    oneOf:
+                    - $ref: '#/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data'
+                    - title: GenericContractSingleResponse
+                      properties:
+                        contract_type:
+                          description: Type of the contract
+                          example: PAY_ON_DEMAND
+                          title: Contract Type
+                          enum:
+                          - FIXED
+                          - MILESTONE
+                          - PAY_AS_YOU_GO
+                          - EOR
+                          - PAY_ON_DEMAND
+                          type: string
+                        contract_title:
+                          description: Title of the contract
+                          example: Software Development Contract
+                          minLength: 2
+                          title: Contract Title
+                          type: string
+                        contractor_type:
+                          $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_type'
+                          description: Type of the contractor
+                          example: INDIVIDUAL
+                          title: Contractor Type
+                        contractor_first_name:
+                          description: First name of the contractor
+                          example: John
+                          title: Contractor First Name
+                          type: string
+                        contractor_middle_name:
+                          default: null
+                          description: Middle name of the contractor
+                          title: Contractor Middle Name
+                          nullable: true
+                          minLength: 0
+                          type: string
+                        contractor_last_name:
+                          description: Last name of the contractor
+                          example: Doe
+                          title: Contractor Last Name
+                          type: string
+                        contractor_entity_name:
+                          default: null
+                          description: Entity name of the contractor if applicable
+                          title: Contractor Entity Name
+                          nullable: true
+                          type: string
+                        contractor_email:
+                          description: Email address of the contractor
+                          example: john.doe@example.com
+                          format: email
+                          title: Contractor Email
+                          type: string
+                        contractor_address:
+                          $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_address'
+                          description: Address of the contractor
+                          example:
+                            country:
+                              iso2: US
+                              name: United States
+                            state:
+                              iso2: NY
+                              name: New York
+                          title: Contractor Address
+                        contractor_job_title:
+                          description: Job title of the contractor
+                          example: Software Developer
+                          title: Contractor Job Title
+                          type: string
+                        scope_of_work:
+                          description: Detailed description of the scope of work
+                          example: Develop and maintain software applications.
+                          maxLength: 10000
+                          minLength: 0
+                          title: Scope of Work
+                          type: string
+                        contractor_start_date:
+                          default: null
+                          description: Start date of the contract
+                          example: '2023-01-01'
+                          title: Contractor Start Date
+                          nullable: true
+                          format: date
+                          type: string
+                        contract_end_date:
+                          default: null
+                          description: End date of the contract
+                          example: '2023-12-31'
+                          title: Contract End Date
+                          nullable: true
+                          format: date
+                          type: string
+                        contract_id:
+                          description: Unique identifier for the contract
+                          title: Contract ID
+                          type: string
+                        contractor_id:
+                          description: Unique identifier for the contractor
+                          title: Contractor ID
+                          type: string
+                        contract_status:
+                          $ref: '#/paths/~1contracts/get/parameters/4/schema'
+                          description: Current status of the contract
+                          title: Contract Status
+                        employer_id:
+                          description: Unique identifier for the employer
+                          title: Employer ID
+                          type: string
+                        tags:
+                          default: {}
+                          description: Additional data provided on the resource during creation.
+                          example: {}
+                          title: Tags
+                          nullable: true
+                          type: object
+                        contract_document:
+                          default: null
+                          description: Document associated with the contract
+                          title: Contract Document
+                          nullable: true
+                          $ref: '#/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data/properties/contract_document'
+                      required:
+                      - contract_type
+                      - contract_title
+                      - contractor_type
+                      - contractor_first_name
+                      - contractor_last_name
+                      - contractor_email
+                      - contractor_address
+                      - contractor_job_title
+                      - scope_of_work
+                      - contract_id
+                      - contractor_id
+                      - contract_status
+                      - employer_id
+                      type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /contracts:
+    post:
+      tags:
+      - Contracts
+      summary: Create a new contract
+      description: 'Create a new contract
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - title: Pay On Demand Contract Request
+                properties:
+                  contract_type:
+                    default: PAY_ON_DEMAND
+                    description: Type of the contract
+                    enum:
+                    - PAY_ON_DEMAND
+                    example: PAY_ON_DEMAND
+                    title: Contract Type
+                    type: string
+                  contract_title:
+                    description: Title of the contract
+                    example: Software Development Contract
+                    minLength: 2
+                    title: Contract Title
+                    type: string
+                  contractor_type:
+                    description: Type of the contractor
+                    example: INDIVIDUAL
+                    title: Contractor Type
+                    enum:
+                    - INDIVIDUAL
+                    - ENTITY
+                    type: string
+                  contractor_first_name:
+                    description: First name of the contractor
+                    example: John
+                    title: Contractor First Name
+                    type: string
+                  contractor_middle_name:
+                    default: null
+                    description: Middle name of the contractor
+                    title: Contractor Middle Name
+                    nullable: true
+                    minLength: 0
+                    type: string
+                  contractor_last_name:
+                    description: Last name of the contractor
+                    example: Doe
+                    title: Contractor Last Name
+                    type: string
+                  contractor_entity_name:
+                    default: null
+                    description: Entity name of the contractor if applicable
+                    title: Contractor Entity Name
+                    nullable: true
+                    type: string
+                  contractor_email:
+                    description: Email address of the contractor
+                    example: john.doe@example.com
+                    format: email
+                    title: Contractor Email
+                    type: string
+                  contractor_address:
+                    description: Address of the contractor
+                    example:
+                      country:
+                        iso2: US
+                        name: United States
+                      state:
+                        iso2: NY
+                        name: New York
+                    title: Contractor Address
+                    properties:
+                      country:
+                        title: Country
+                        properties:
+                          name:
+                            title: Name
+                            type: string
+                          iso2:
+                            title: CountryISO2
+                            enum:
+                            - FO
+                            - CF
+                            - BQ
+                            - JE
+                            - AQ
+                            - XK
+                            - YT
+                            - PY
+                            - RU
+                            - FI
+                            - AD
+                            - MW
+                            - OM
+                            - CA
+                            - MV
+                            - AW
+                            - TF
+                            - CD
+                            - ID
+                            - NP
+                            - MX
+                            - ML
+                            - LU
+                            - AM
+                            - SE
+                            - FK
+                            - AX
+                            - UY
+                            - DO
+                            - TH
+                            - GP
+                            - MR
+                            - TR
+                            - NF
+                            - GQ
+                            - CY
+                            - KE
+                            - VA
+                            - MF
+                            - RS
+                            - SD
+                            - HU
+                            - GL
+                            - NE
+                            - PG
+                            - MZ
+                            - PS
+                            - MS
+                            - GG
+                            - VG
+                            - IR
+                            - YE
+                            - GS
+                            - TT
+                            - CO
+                            - GM
+                            - GN
+                            - NI
+                            - HT
+                            - BR
+                            - BY
+                            - WS
+                            - GW
+                            - ZA
+                            - CZ
+                            - JM
+                            - SJ
+                            - BO
+                            - CX
+                            - AO
+                            - SG
+                            - CM
+                            - ET
+                            - IS
+                            - MH
+                            - SM
+                            - BD
+                            - BV
+                            - BA
+                            - GA
+                            - LS
+                            - PW
+                            - PR
+                            - VE
+                            - DM
+                            - RO
+                            - BL
+                            - GB
+                            - PE
+                            - IT
+                            - TG
+                            - AS
+                            - MK
+                            - ZW
+                            - UM
+                            - CN
+                            - NU
+                            - SX
+                            - FJ
+                            - GR
+                            - IL
+                            - BJ
+                            - MU
+                            - MC
+                            - VI
+                            - EC
+                            - SI
+                            - TK
+                            - BZ
+                            - SK
+                            - TJ
+                            - US
+                            - SB
+                            - TW
+                            - KH
+                            - BE
+                            - CL
+                            - AT
+                            - KW
+                            - FM
+                            - GH
+                            - MD
+                            - NA
+                            - AU
+                            - VC
+                            - BI
+                            - ME
+                            - KZ
+                            - KN
+                            - SO
+                            - ZM
+                            - PL
+                            - HK
+                            - BN
+                            - GU
+                            - HR
+                            - DK
+                            - NZ
+                            - ES
+                            - LK
+                            - EG
+                            - SZ
+                            - AI
+                            - BM
+                            - NG
+                            - LI
+                            - TL
+                            - UA
+                            - ST
+                            - LC
+                            - IE
+                            - BB
+                            - GI
+                            - PN
+                            - VU
+                            - PA
+                            - MO
+                            - MP
+                            - IM
+                            - TZ
+                            - MQ
+                            - TO
+                            - VN
+                            - JO
+                            - KI
+                            - MY
+                            - MT
+                            - SN
+                            - SS
+                            - CV
+                            - TM
+                            - AL
+                            - KR
+                            - CH
+                            - BS
+                            - DJ
+                            - SA
+                            - PF
+                            - LY
+                            - SR
+                            - KG
+                            - GY
+                            - MG
+                            - BW
+                            - FR
+                            - AE
+                            - AG
+                            - GD
+                            - HN
+                            - CR
+                            - DZ
+                            - AZ
+                            - CK
+                            - SV
+                            - LA
+                            - CU
+                            - GF
+                            - BG
+                            - LR
+                            - BF
+                            - NC
+                            - QA
+                            - EH
+                            - WF
+                            - PM
+                            - CG
+                            - BT
+                            - CW
+                            - SC
+                            - NR
+                            - PK
+                            - IN
+                            - RE
+                            - MN
+                            - MM
+                            - KP
+                            - SH
+                            - UZ
+                            - IQ
+                            - TN
+                            - MA
+                            - NL
+                            - RW
+                            - TC
+                            - PH
+                            - GT
+                            - JP
+                            - SY
+                            - KM
+                            - EE
+                            - UG
+                            - TV
+                            - TD
+                            - PT
+                            - LT
+                            - BH
+                            - DE
+                            - SL
+                            - CI
+                            - IO
+                            - LV
+                            - CC
+                            - HM
+                            - AR
+                            - AF
+                            - LB
+                            - 'NO'
+                            - GE
+                            - KY
+                            - ER
+                            type: string
+                        required:
+                        - name
+                        - iso2
+                        type: object
+                      state:
+                        default: null
+                        nullable: true
+                        title: State
+                        properties:
+                          name:
+                            title: Name
+                            type: string
+                          iso2:
+                            maxLength: 10
+                            minLength: 1
+                            title: Iso2
+                            type: string
+                        required:
+                        - name
+                        - iso2
+                        type: object
+                    required:
+                    - country
+                    type: object
+                  contractor_job_title:
+                    description: Job title of the contractor
+                    example: Software Developer
+                    title: Contractor Job Title
+                    type: string
+                  scope_of_work:
+                    description: Detailed description of the scope of work
+                    example: Develop and maintain software applications.
+                    maxLength: 10000
+                    minLength: 0
+                    title: Scope of Work
+                    type: string
+                  contractor_start_date:
+                    default: null
+                    description: Start date of the contract
+                    example: '2023-01-01'
+                    title: Contractor Start Date
+                    nullable: true
+                    format: date
+                    type: string
+                  contract_end_date:
+                    default: null
+                    description: End date of the contract
+                    example: '2023-12-31'
+                    title: Contract End Date
+                    nullable: true
+                    format: date
+                    type: string
+                  notice_period_in_days:
+                    default: 0
+                    description: Notice period in days for the contract
+                    example: 30
+                    title: Notice Period in Days
+                    nullable: true
+                    minimum: 0
+                    type: integer
+                  contract_document_type:
+                    description: Type of the contract document
+                    example: SELF_CONTRACT
+                    title: Contract Document Type
+                    enum:
+                    - SELF_CONTRACT
+                    - NIURAL_CONTRACT
+                    type: string
+                  original_contract_reference_id:
+                    default: null
+                    description: Reference ID of the original contract
+                    example: '12345'
+                    title: Original Contract Reference ID
+                    nullable: true
+                    type: string
+                  special_clause:
+                    default: null
+                    description: Special clause in the contract
+                    example: This contract is subject to annual review.
+                    title: Special Clause
+                    nullable: true
+                    maxLength: 10000
+                    minLength: 0
+                    type: string
+                  tags:
+                    default: {}
+                    description: Additional data you would like to provide on the resource.
+                    example: {}
+                    title: Tags
+                    nullable: true
+                    type: object
+                required:
+                - contract_title
+                - contractor_type
+                - contractor_first_name
+                - contractor_last_name
+                - contractor_email
+                - contractor_address
+                - contractor_job_title
+                - scope_of_work
+                - contract_document_type
+                type: object
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    oneOf:
+                    - $ref: '#/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '422':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+    get:
+      tags:
+      - Contracts
+      summary: Get contracts
+      description: 'Get a list of contracts
+
+        '
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Number of items to fetch. Default is 20
+      - name: next_cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Get the next set of items from the cursor provided in the previous response if any
+      - name: contract_type
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by contract type
+      - name: contractor_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by contractor ID
+      - name: contract_status
+        in: query
+        required: false
+        schema:
+          title: ContractStatus
+          enum:
+          - DRAFT
+          - SIGNED_BY_EMPLOYER
+          - CONTRACTOR_SIGN_PENDING
+          - AMENDMENT_REQUESTED
+          - ACTIVE
+          - ENDING_SOON
+          - ENDED
+          - CANCELLED
+          - INACTIVE
+          type: string
+        description: Filter by contract status
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: ContractListResponse
+                    properties:
+                      items:
+                        default: []
+                        items:
+                          title: ContractListResponseItem
+                          properties:
+                            contract_type:
+                              $ref: '#/paths/~1contracts~1%7Bcontract-id%7D/get/responses/200/content/application~1json/schema/properties/data/oneOf/1/properties/contract_type'
+                              description: Type of the contract
+                              example: PAY_ON_DEMAND
+                              title: Contract Type
+                            contract_title:
+                              description: Title of the contract
+                              example: Software Development Contract
+                              minLength: 2
+                              title: Contract Title
+                              type: string
+                            contractor_type:
+                              $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_type'
+                              description: Type of the contractor
+                              example: INDIVIDUAL
+                              title: Contractor Type
+                            contractor_first_name:
+                              description: First name of the contractor
+                              example: John
+                              title: Contractor First Name
+                              type: string
+                            contractor_middle_name:
+                              default: null
+                              description: Middle name of the contractor
+                              title: Contractor Middle Name
+                              nullable: true
+                              minLength: 0
+                              type: string
+                            contractor_last_name:
+                              description: Last name of the contractor
+                              example: Doe
+                              title: Contractor Last Name
+                              type: string
+                            contractor_entity_name:
+                              default: null
+                              description: Entity name of the contractor if applicable
+                              title: Contractor Entity Name
+                              nullable: true
+                              type: string
+                            contractor_email:
+                              description: Email address of the contractor
+                              example: john.doe@example.com
+                              format: email
+                              title: Contractor Email
+                              type: string
+                            contractor_address:
+                              $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_address'
+                              description: Address of the contractor
+                              example:
+                                country:
+                                  iso2: US
+                                  name: United States
+                                state:
+                                  iso2: NY
+                                  name: New York
+                              title: Contractor Address
+                            contractor_job_title:
+                              description: Job title of the contractor
+                              example: Software Developer
+                              title: Contractor Job Title
+                              type: string
+                            scope_of_work:
+                              description: Detailed description of the scope of work
+                              example: Develop and maintain software applications.
+                              maxLength: 10000
+                              minLength: 0
+                              title: Scope of Work
+                              type: string
+                            contractor_start_date:
+                              default: null
+                              description: Start date of the contract
+                              example: '2023-01-01'
+                              title: Contractor Start Date
+                              nullable: true
+                              format: date
+                              type: string
+                            contract_end_date:
+                              default: null
+                              description: End date of the contract
+                              example: '2023-12-31'
+                              title: Contract End Date
+                              nullable: true
+                              format: date
+                              type: string
+                            contract_id:
+                              description: Unique identifier for the contract
+                              title: Contract ID
+                              type: string
+                            contractor_id:
+                              description: Unique identifier for the contractor
+                              title: Contractor ID
+                              type: string
+                            contract_status:
+                              $ref: '#/paths/~1contracts/get/parameters/4/schema'
+                              description: Current status of the contract
+                              title: Contract Status
+                            employer_id:
+                              description: Unique identifier for the employer
+                              title: Employer ID
+                              type: string
+                            tags:
+                              default: {}
+                              description: Additional data provided on the resource during creation.
+                              example: {}
+                              title: Tags
+                              nullable: true
+                              type: object
+                          required:
+                          - contract_type
+                          - contract_title
+                          - contractor_type
+                          - contractor_first_name
+                          - contractor_last_name
+                          - contractor_email
+                          - contractor_address
+                          - contractor_job_title
+                          - scope_of_work
+                          - contract_id
+                          - contractor_id
+                          - contract_status
+                          - employer_id
+                          type: object
+                        title: Items
+                        type: array
+                      next_cursor:
+                        default: null
+                        title: Next Cursor
+                        nullable: true
+                        type: string
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /payment-methods:
+    get:
+      tags:
+      - Transactions
+      summary: Get payment methods
+      description: 'Get a list of payment methods
+
+        '
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Number of items to fetch. Default is 20
+      - name: next_cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Get the next set of items from the cursor provided in the previous response if any
+      - name: status
+        in: query
+        required: false
+        schema:
+          title: NiuralPaymentMethodStatus
+          enum:
+          - PENDING_VERIFICATION
+          - VALIDATED
+          - VERIFIED
+          - VERIFICATION_FAILED
+          type: string
+        description: Filter by payment status
+      - name: is_primary
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Filter by primary payment method
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: PaymentMethodsListResponse
+                    properties:
+                      items:
+                        default: []
+                        items:
+                          title: PaymentMethodResponse
+                          properties:
+                            payment_account_id:
+                              description: The unique identifier for the payment method.
+                              title: Payment Method ID
+                              type: string
+                            account_nickname:
+                              default: null
+                              description: A nickname for the payment method.
+                              title: Account Nickname
+                              nullable: true
+                              type: string
+                            account_number_last_4:
+                              description: The last 4 digits of the account number.
+                              title: Account Number Last 4
+                              type: string
+                            routing_number:
+                              description: The routing number associated with the payment method.
+                              title: Routing Number
+                              type: string
+                            account_holder_name:
+                              description: The name of the account holder.
+                              title: Account Holder Name
+                              type: string
+                            country:
+                              description: The country in which the payment method is registered.
+                              title: Country
+                              type: string
+                            status:
+                              $ref: '#/paths/~1payment-methods/get/parameters/2/schema'
+                              description: The current status of the payment method.
+                              title: Status
+                            is_primary:
+                              description: Indicates whether the payment method is the primary method
+                                for the user.
+                              title: Is Primary
+                              type: boolean
+                            created_date:
+                              description: The date and time when the payment method was created.
+                              format: date-time
+                              title: Created Date
+                              type: string
+                            updated_date:
+                              description: The date and time when the payment method was last updated.
+                              format: date-time
+                              title: Updated Date
+                              type: string
+                          required:
+                          - payment_account_id
+                          - account_number_last_4
+                          - routing_number
+                          - account_holder_name
+                          - country
+                          - status
+                          - is_primary
+                          - created_date
+                          - updated_date
+                          type: object
+                        title: Items
+                        type: array
+                      next_cursor:
+                        default: null
+                        title: Next Cursor
+                        nullable: true
+                        type: string
+                    type: object
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /transactions/{transaction-id}:
+    get:
+      tags:
+      - Transactions
+      summary: Get a Transaction
+      description: 'Get transaction details by contract ID
+
+        '
+      parameters:
+      - name: transaction-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the transaction to retrieve
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/paths/~1transactions/post/responses/200/content/application~1json/schema/properties/data'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+    patch:
+      tags:
+      - Transactions
+      summary: Update a pay by hash transaction
+      description: 'Update a pay by hash transaction
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: TransactionUpdateRequestModel
+              properties:
+                payment_hash:
+                  description: The hash of the payment transaction on the blockchain.
+                  maxLength: 66
+                  minLength: 66
+                  pattern: ^0x[a-fA-F0-9]{64}$
+                  title: Payment Hash
+                  type: string
+                chain_id:
+                  description: The ID of the blockchain network where the transaction is recorded.
+                  title: Chain ID
+                  type: integer
+              required:
+              - payment_hash
+              - chain_id
+              type: object
+        required: true
+      parameters:
+      - name: transaction-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the transaction to update
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/paths/~1transactions/post/responses/200/content/application~1json/schema/properties/data'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /transactions:
+    post:
+      tags:
+      - Transactions
+      summary: Initiate a new transaction
+      description: 'Initiate a new transaction
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: TransactionRequest
+              properties:
+                transfer_type:
+                  description: The type of transfer to be made.
+                  title: Transfer Type
+                  enum:
+                  - ACH
+                  - WIRE
+                  - CRYPTO
+                  - PAY_BY_HASH
+                  type: string
+                invoice_ids:
+                  description: A list of invoice ids to pay.
+                  items:
+                    type: string
+                  minItems: 1
+                  title: Invoices
+                  type: array
+                crypto_payment_details:
+                  default: null
+                  description: Details of the payment if the transfer type is Pay by Hash.
+                  title: Crypto Payment Details
+                  nullable: true
+                  properties:
+                    token:
+                      $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                    chain_id:
+                      title: Chain Id
+                      nullable: true
+                      type: integer
+                  required:
+                  - token
+                  - chain_id
+                  type: object
+                payment_account_id:
+                  default: null
+                  description: The ID of the payment account. Required for ACH transfer type. If not provided,
+                    we'll attempt to use the primary account by default.
+                  title: Payment Account ID
+                  nullable: true
+                  type: string
+                tags:
+                  default: {}
+                  description: Additional data you would like to provide on the resource.
+                  example: {}
+                  title: Tags
+                  nullable: true
+                  type: object
+              required:
+              - transfer_type
+              - invoice_ids
+              type: object
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: TransactionResponseModel
+                    properties:
+                      transaction_id:
+                        description: The unique identifier for the transaction.
+                        title: Transaction ID
+                        type: string
+                      sub_total_amount:
+                        description: The subtotal amount of the transaction before fees.
+                        title: Sub Total Amount
+                        type: string
+                      fee_amount:
+                        description: The total fee amount applied to the transaction.
+                        title: Fee Amount
+                        type: string
+                      fee_breakdown:
+                        default: null
+                        description: A detailed breakdown of the fees applied to the transaction.
+                        title: Fee Breakdown
+                        nullable: true
+                        items:
+                          title: Fee
+                          properties:
+                            fee_type:
+                              default: null
+                              nullable: true
+                              title: TransactionFeeType
+                              enum:
+                              - ACH_PULL_PROCESSING_FEES
+                              - WIRE_INCOMING_PROCESSING_FEES
+                              - ON_RAMP_FEE
+                              - OFF_RAMP_FEE
+                              - CRYPTO_GAS_FEE
+                              - ACH_OUTGOING_FEE
+                              - WIRE_OUTGOING_FEE
+                              - SWAP_FEE
+                              type: string
+                            description:
+                              title: Description
+                              type: string
+                            amount:
+                              title: Amount
+                              type: string
+                          required:
+                          - description
+                          - amount
+                          type: object
+                        type: array
+                      total_amount:
+                        description: The total amount of the transaction including fees.
+                        title: Total Amount
+                        type: string
+                      transaction_status:
+                        $ref: '#/paths/~1transactions/get/parameters/2/schema'
+                        description: The current status of the transaction.
+                        title: Transaction Status
+                      transaction_currency:
+                        anyOf:
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                        description: The currency in which the transaction is made.
+                        title: Transaction Currency
+                      associated_invoices:
+                        default: []
+                        description: A list of invoice IDs associated with the transaction.
+                        items:
+                          type: string
+                        title: Associated Invoices
+                        type: array
+                      associated_payrolls:
+                        default: []
+                        description: A list of payroll IDs associated with the transaction.
+                        items:
+                          type: string
+                        title: Associated Payrolls
+                        type: array
+                      transaction_created_date:
+                        description: The date and time when the transaction was created.
+                        format: date-time
+                        title: Transaction Created Date
+                        type: string
+                      transaction_settlement_date:
+                        default: null
+                        description: The date and time when the transaction is expected to be settled.
+                        title: Transaction Settlement Date
+                        nullable: true
+                        format: date-time
+                        type: string
+                      tags:
+                        default: {}
+                        description: Additional data provided on the resource during creation.
+                        example: {}
+                        title: Tags
+                        nullable: true
+                        type: object
+                    required:
+                    - transaction_id
+                    - sub_total_amount
+                    - fee_amount
+                    - total_amount
+                    - transaction_status
+                    - transaction_currency
+                    - transaction_created_date
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '422':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+    get:
+      tags:
+      - Transactions
+      summary: Get transactions
+      description: 'Get a list of transactions
+
+        '
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Number of items to fetch. Default is 20
+      - name: next_cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Get the next set of items from the cursor provided in the previous response if any
+      - name: transaction_status
+        in: query
+        required: false
+        schema:
+          title: TransactionStatus
+          enum:
+          - PENDING
+          - PROCESSING
+          - PAID
+          - FAILED
+          - INSUFFICIENT_PAYMENT
+          - VOID
+          type: string
+        description: Filter by transaction status
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: TransactionListResponse
+                    properties:
+                      items:
+                        default: []
+                        items:
+                          $ref: '#/paths/~1transactions/post/responses/200/content/application~1json/schema/properties/data'
+                        title: Items
+                        type: array
+                      next_cursor:
+                        default: null
+                        title: Next Cursor
+                        nullable: true
+                        type: string
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /invoices/{invoice-id}:
+    get:
+      summary: Get a single invoice
+      operationId: getInvoice
+      tags:
+      - Invoices
+      parameters:
+      - name: invoice-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the invoice to retrieve
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/paths/~1invoices/get/responses/200/content/application~1json/schema/properties/data'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /contracts/{contract-id}/invite-contractor:
+    patch:
+      tags:
+      - Contracts
+      summary: Invite a Contractor to Sign a Contract
+      description: 'Invite a contractor to sign a contract by contract ID
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: ContractorInvitationRequestModel
+              properties:
+                message_for_contractor:
+                  default: null
+                  description: Optional message to be sent to the contractor
+                  example: Welcome to the team! Please review and sign the contract.
+                  title: Message for Contractor
+                  nullable: true
+                  type: string
+              type: object
+        required: true
+      parameters:
+      - name: contract-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the contract to send invitation for
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /contracts/{contract-id}/sign:
+    patch:
+      tags:
+      - Contracts
+      summary: Sign a Contract
+      description: 'Sign a contract by employer
+
+        '
+      parameters:
+      - name: contract-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the contract to sign
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: Pay On Demand Contract Response
+                    properties:
+                      contract_type:
+                        default: PAY_ON_DEMAND
+                        description: Type of the contract
+                        enum:
+                        - PAY_ON_DEMAND
+                        example: PAY_ON_DEMAND
+                        title: Contract Type
+                        type: string
+                      contract_title:
+                        description: Title of the contract
+                        example: Software Development Contract
+                        minLength: 2
+                        title: Contract Title
+                        type: string
+                      contractor_type:
+                        $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_type'
+                        description: Type of the contractor
+                        example: INDIVIDUAL
+                        title: Contractor Type
+                      contractor_first_name:
+                        description: First name of the contractor
+                        example: John
+                        title: Contractor First Name
+                        type: string
+                      contractor_middle_name:
+                        default: null
+                        description: Middle name of the contractor
+                        title: Contractor Middle Name
+                        nullable: true
+                        minLength: 0
+                        type: string
+                      contractor_last_name:
+                        description: Last name of the contractor
+                        example: Doe
+                        title: Contractor Last Name
+                        type: string
+                      contractor_entity_name:
+                        default: null
+                        description: Entity name of the contractor if applicable
+                        title: Contractor Entity Name
+                        nullable: true
+                        type: string
+                      contractor_email:
+                        description: Email address of the contractor
+                        example: john.doe@example.com
+                        format: email
+                        title: Contractor Email
+                        type: string
+                      contractor_address:
+                        $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_address'
+                        description: Address of the contractor
+                        example:
+                          country:
+                            iso2: US
+                            name: United States
+                          state:
+                            iso2: NY
+                            name: New York
+                        title: Contractor Address
+                      contractor_job_title:
+                        description: Job title of the contractor
+                        example: Software Developer
+                        title: Contractor Job Title
+                        type: string
+                      scope_of_work:
+                        description: Detailed description of the scope of work
+                        example: Develop and maintain software applications.
+                        maxLength: 10000
+                        minLength: 0
+                        title: Scope of Work
+                        type: string
+                      contractor_start_date:
+                        default: null
+                        description: Start date of the contract
+                        example: '2023-01-01'
+                        title: Contractor Start Date
+                        nullable: true
+                        format: date
+                        type: string
+                      contract_end_date:
+                        default: null
+                        description: End date of the contract
+                        example: '2023-12-31'
+                        title: Contract End Date
+                        nullable: true
+                        format: date
+                        type: string
+                      notice_period_in_days:
+                        default: 0
+                        description: Notice period in days for the contract
+                        example: 30
+                        title: Notice Period in Days
+                        nullable: true
+                        minimum: 0
+                        type: integer
+                      contract_document_type:
+                        $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contract_document_type'
+                        description: Type of the contract document
+                        example: SELF_CONTRACT
+                        title: Contract Document Type
+                      original_contract_reference_id:
+                        default: null
+                        description: Reference ID of the original contract
+                        example: '12345'
+                        title: Original Contract Reference ID
+                        nullable: true
+                        type: string
+                      special_clause:
+                        default: null
+                        description: Special clause in the contract
+                        example: This contract is subject to annual review.
+                        title: Special Clause
+                        nullable: true
+                        maxLength: 10000
+                        minLength: 0
+                        type: string
+                      tags:
+                        default: {}
+                        description: Additional data provided on the resource during creation.
+                        example: {}
+                        title: Tags
+                        nullable: true
+                        type: object
+                      contract_id:
+                        description: Unique identifier for the contract
+                        title: Contract ID
+                        type: string
+                      contractor_id:
+                        description: Unique identifier for the contractor
+                        title: Contractor ID
+                        type: string
+                      contract_status:
+                        $ref: '#/paths/~1contracts/get/parameters/4/schema'
+                        description: Current status of the contract
+                        title: Contract Status
+                      employer_id:
+                        description: Unique identifier for the employer
+                        title: Employer ID
+                        type: string
+                      contract_document:
+                        default: null
+                        description: Document associated with the contract
+                        title: Contract Document
+                        nullable: true
+                        properties:
+                          document_title:
+                            title: Document Title
+                            type: string
+                          document_url:
+                            format: uri
+                            maxLength: 2083
+                            minLength: 1
+                            title: Document Url
+                            type: string
+                          s3_console_url:
+                            default: null
+                            title: S3 Console Url
+                            nullable: true
+                            format: uri
+                            maxLength: 2083
+                            minLength: 1
+                            type: string
+                          region:
+                            default: us-east-1
+                            title: Region
+                            nullable: true
+                            enum:
+                            - us-east-1
+                            - us-east-2
+                            - us-west-1
+                            - us-west-2
+                            - eu-west-1
+                            - ap-southeast-1
+                            - ap-northeast-1
+                            type: string
+                        required:
+                        - document_title
+                        - document_url
+                        type: object
+                    required:
+                    - contract_title
+                    - contractor_type
+                    - contractor_first_name
+                    - contractor_last_name
+                    - contractor_email
+                    - contractor_address
+                    - contractor_job_title
+                    - scope_of_work
+                    - contract_document_type
+                    - contract_id
+                    - contractor_id
+                    - contract_status
+                    - employer_id
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /authenticate:
+    post:
+      tags:
+      - Authentication
+      summary: Obtain Auth token
+      description: 'Exchange the client credentials (ID and secret) for an auth token. Use the auth token
+        in the Authorization header for requests to other endpoints.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: AuthenticationRequest
+              properties:
+                client_id:
+                  description: The client ID provided by Niural
+                  example: 550e8400-e29b-41d4-a716-446655440000
+                  title: Client ID
+                  type: string
+                client_secret:
+                  description: The client secret associated with the client ID
+                  example: a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
+                  title: Client Secret
+                  type: string
+              required:
+              - client_id
+              - client_secret
+              type: object
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: AuthenticationResponse
+                    properties:
+                      access_token:
+                        description: The token used to access the API
+                        title: Access Token
+                        type: string
+                      refresh_token:
+                        description: The token used to refresh the access token
+                        title: Refresh Token
+                        type: string
+                      expires_in:
+                        description: The duration in seconds until the access token expires
+                        title: Expires In
+                        type: integer
+                    required:
+                    - access_token
+                    - refresh_token
+                    - expires_in
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '422':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+      security: []
+  /transaction-estimates:
+    post:
+      tags:
+      - Transactions
+      summary: Get estimates for a transaction
+      description: 'Calculate estimated amount and fees for a transaction
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: TransactionEstimatesRequest
+              properties:
+                transfer_type:
+                  $ref: '#/paths/~1transactions/post/requestBody/content/application~1json/schema/properties/transfer_type'
+                  description: The type of transfer to be made.
+                  title: Transfer Type
+                invoice_ids:
+                  description: A list of invoice ids to pay.
+                  items:
+                    type: string
+                  minItems: 1
+                  title: Invoices
+                  type: array
+                crypto_payment_details:
+                  default: null
+                  description: Details of the payment if the transfer type is Pay by Hash.
+                  title: Crypto Payment Details
+                  nullable: true
+                  $ref: '#/paths/~1transactions/post/requestBody/content/application~1json/schema/properties/crypto_payment_details'
+              required:
+              - transfer_type
+              - invoice_ids
+              type: object
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: TransactionEstimates
+                    properties:
+                      transaction_currency:
+                        anyOf:
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                        title: Transaction Currency
+                      invoices:
+                        items:
+                          title: InvoicePaymentDetails
+                          properties:
+                            invoice_id:
+                              title: Invoice Id
+                              type: string
+                            conversions:
+                              items:
+                                title: InvoiceConversionDetails
+                                properties:
+                                  invoice_currency:
+                                    anyOf:
+                                    - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                                    - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                                    title: Invoice Currency
+                                  target_currency:
+                                    anyOf:
+                                    - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                                    - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                                    title: Target Currency
+                                  exchange_rate:
+                                    title: Exchange Rate
+                                    type: string
+                                  invoice_amount:
+                                    title: Invoice Amount
+                                    type: string
+                                  target_amount:
+                                    title: Target Amount
+                                    type: string
+                                required:
+                                - invoice_currency
+                                - target_currency
+                                - exchange_rate
+                                - invoice_amount
+                                - target_amount
+                                type: object
+                              title: Conversions
+                              type: array
+                            invoice_fees:
+                              default: []
+                              items:
+                                $ref: '#/paths/~1transactions/post/responses/200/content/application~1json/schema/properties/data/properties/fee_breakdown/items'
+                              title: Invoice Fees
+                              type: array
+                            invoice_sub_total_amount:
+                              default: '0'
+                              title: Invoice Sub Total Amount
+                              type: string
+                            invoice_grand_total_amount:
+                              default: '0'
+                              title: Invoice Grand Total Amount
+                              type: string
+                          required:
+                          - invoice_id
+                          - conversions
+                          type: object
+                        title: Invoices
+                        type: array
+                      sub_total_amount:
+                        default: '0'
+                        title: Sub Total Amount
+                        type: string
+                      fees_breakdown:
+                        items:
+                          $ref: '#/paths/~1transactions/post/responses/200/content/application~1json/schema/properties/data/properties/fee_breakdown/items'
+                        title: Fees Breakdown
+                        type: array
+                      total_fees:
+                        default: '0'
+                        title: Total Fees
+                        type: string
+                      total_amount:
+                        default: '0'
+                        title: Total Amount
+                        type: string
+                    required:
+                    - transaction_currency
+                    - invoices
+                    - fees_breakdown
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '422':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    BadRequestResponse:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    ServerErrorResponse:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    NotFoundResponse:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    ValidationErrorResponse:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+              meta:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                description: Additional information of validation errors

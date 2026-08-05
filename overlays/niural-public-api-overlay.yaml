@@ -1,0 +1,91 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Niural Public API
+  version: 1.0.0
+extends: openapi/niural-public-api-openapi.yml
+x-generated: '2026-08-04'
+x-method: generated
+x-source: >-
+  Derived from the Niural Public API OpenAPI 3.0.3 harvested verbatim from
+  docs.niural.com plus the cross-cutting docs captured in
+  conventions/niural-conventions.yml, errors/niural-problem-types.yml and
+  rate-limits/niural-rate-limits.yml. Adds the twelve missing operationIds,
+  declares the tag set, and records the runtime semantics OpenAPI cannot express.
+  The harvested spec is never mutated.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-profile: https://apis.io/provider/niural
+    x-apievangelist-enriched: '2026-08-04'
+    contact:
+      name: Niural Developer Documentation
+      url: https://docs.niural.com/
+- target: $
+  update:
+    tags:
+    - name: Authentication
+      description: Exchange client credentials for a bearer access token.
+    - name: Contracts
+      description: Create, list, sign and share pay-on-demand contractor contracts.
+    - name: Invoices
+      description: Create and read invoices raised against a contract.
+    - name: Transactions
+      description: Estimate, initiate and track payments settling one or more invoices.
+    x-rate-limit:
+      requests_per_second: 25
+      scope: token
+      throttled_status: 429
+      source: https://docs.niural.com/docs/rate-limits
+    x-pagination:
+      style: cursor
+      params: [limit, next_cursor]
+      default_page_size: 20
+      source: https://docs.niural.com/docs/pagination
+    x-idempotency:
+      supported: false
+      note: >-
+        Niural documents no idempotency-key mechanism. POST /transactions and
+        POST /invoices are NOT safe to blind-retry.
+- target: $.paths['/authenticate'].post
+  update:
+    operationId: obtainAuthToken
+    x-agentic-access: {action_class: acting, consequence: write}
+- target: $.paths['/contracts'].post
+  update:
+    operationId: createContract
+- target: $.paths['/contracts'].get
+  update:
+    operationId: listContracts
+- target: $.paths['/contracts/{contract-id}'].get
+  update:
+    operationId: getContract
+- target: $.paths['/contracts/{contract-id}/sign'].patch
+  update:
+    operationId: signContract
+- target: $.paths['/contracts/{contract-id}/invite-contractor'].patch
+  update:
+    operationId: inviteContractorToContract
+- target: $.paths['/payment-methods'].get
+  update:
+    operationId: listPaymentMethods
+- target: $.paths['/transaction-estimates'].post
+  update:
+    operationId: estimateTransaction
+    x-safe-to-retry: true
+- target: $.paths['/transactions'].post
+  update:
+    operationId: initiateTransaction
+    x-safe-to-retry: false
+    x-agentic-access:
+      action_class: acting
+      consequence: physical
+      note: Moves real money against one or more invoices; no idempotency key is available.
+- target: $.paths['/transactions'].get
+  update:
+    operationId: listTransactions
+- target: $.paths['/transactions/{transaction-id}'].get
+  update:
+    operationId: getTransaction
+- target: $.paths['/transactions/{transaction-id}'].patch
+  update:
+    operationId: updatePayByHashTransaction

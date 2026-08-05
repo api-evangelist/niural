@@ -1,0 +1,35 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: Niural
+providerId: niural
+generated: '2026-08-04'
+method: searched
+source: https://docs.niural.com/docs/rate-limits
+created: '2026-08-04'
+modified: '2026-08-04'
+tags:
+- Rate Limiting
+- Payroll
+- Payments
+description: >-
+  Niural publishes a single token-scoped rate limit for the Niural Public API:
+  25 requests per second. Exceeding it returns HTTP 429 until the next cycle
+  begins. Niural does not publish per-plan limits, burst allowances, or
+  RateLimit-* response headers.
+sources:
+- https://docs.niural.com/docs/rate-limits
+- https://docs.niural.com/docs/http-statuses
+responseCodes:
+  throttled: 429
+headers: {}
+limits:
+- name: Niural Public API requests
+  scope: token
+  metric: requests_per_second
+  limit: 25
+  limit_count: 25
+  timeFrame: second
+  notes: >-
+    "API requests are rate-limited based on tokens. The current rate limit is set
+    to 25 requests per second." Requests over the limit are temporarily
+    rate-limited until the next cycle begins.

@@ -1,0 +1,72 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+provider: Niural
+providerId: niural
+generated: '2026-08-04'
+method: searched
+source: https://www.niural.com/pricing
+created: '2026-08-04'
+modified: '2026-08-04'
+tags:
+- Payroll
+- PEO
+- Employer of Record
+- Contractor Management
+- Global Payroll
+description: >-
+  Niural is priced per product line, per employee/contractor per month, with a
+  platform fee on US payroll. The Niural Public API is not separately metered or
+  priced — API access is included with a Niural account and gated by API keys
+  created in the dashboard.
+sources:
+- https://www.niural.com/pricing
+plans:
+- id: niural-us-payroll-standard
+  name: US Payroll — Standard
+  type: subscription
+  description: US payroll with a monthly platform fee plus a per-employee charge.
+  entries:
+  - {label: Platform fee, name: platform_fee, type: recurring, metric: month, price: "$100/month", userMultiplied: false}
+  - {label: Per employee, name: per_employee, type: recurring, metric: employee_month, price: "$20/employee/month", userMultiplied: true}
+- id: niural-us-payroll-enterprise
+  name: US Payroll — Enterprise
+  type: custom
+  description: Volume-based custom pricing for US payroll.
+  entries:
+  - {label: Custom, name: custom, type: custom, price: Contact sales, userMultiplied: false}
+- id: niural-peo-basic
+  name: US PEO Basic
+  type: subscription
+  description: PEO without benefits.
+  entries:
+  - {label: Per employee, name: per_employee, type: recurring, metric: employee_month, price: "from $59/employee/month", userMultiplied: true}
+- id: niural-peo-plus
+  name: US PEO Plus
+  type: subscription
+  description: PEO with benefits.
+  entries:
+  - {label: Per employee, name: per_employee, type: recurring, metric: employee_month, price: "from $120/employee/month", userMultiplied: true}
+- id: niural-contractor-management
+  name: Contractor Management
+  type: subscription
+  description: International contractor management and payments.
+  entries:
+  - {label: Per contractor, name: per_contractor, type: recurring, metric: contractor_month, price: "$49/contractor/month", userMultiplied: true}
+- id: niural-armor-cor
+  name: Contractor of Record (Niural Armor)
+  type: subscription
+  description: Contractor-of-record with misclassification cover.
+  entries:
+  - {label: Per employee, name: per_employee, type: recurring, metric: employee_month, price: "$299/employee/month", userMultiplied: true}
+- id: niural-eor
+  name: Employer of Record (EOR)
+  type: subscription
+  description: Employer of record in 150+ countries.
+  entries:
+  - {label: Per employee, name: per_employee, type: recurring, metric: employee_month, price: "from $299/employee/month", userMultiplied: true}
+- id: niural-global-payroll
+  name: Global Payroll
+  type: subscription
+  description: Global payroll for existing entities.
+  entries:
+  - {label: Per employee, name: per_employee, type: recurring, metric: employee_month, price: "from $29/employee/month", userMultiplied: true}

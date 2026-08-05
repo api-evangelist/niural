@@ -1,0 +1,83 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  openapi/niural-public-api-openapi.yml + https://docs.niural.com/docs/* +
+  https://www.niural.com/ (SOC Type-2 badge) + https://trust.niural.com/
+description: >-
+  Cross-cutting standards conformance for the Niural Public API, derived from the
+  published OpenAPI and the developer docs, with the compliance posture Niural
+  advertises on its own marketing site.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    Niural publishes OpenAPI 3.0.3 for the Niural Public API, embedded per
+    operation on every docs.niural.com/reference page.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No oauth2 securityScheme. Auth is a bespoke client_id/client_secret exchange
+    at POST /authenticate returning a bearer JWT — client-credentials shaped but
+    not an OAuth 2.0 token endpoint (no grant_type, no token_type, no scope).
+- id: oidc
+  conforms: false
+  evidence: No /.well-known/openid-configuration on any host (403/404).
+- id: rfc6750-bearer
+  conforms: true
+  evidence: >-
+    Authorization: Bearer <access_token> on every operation; securityScheme
+    BearerAuth type http/bearer with bearerFormat JWT.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors are application/json {error_code, message}, not
+    application/problem+json. See errors/niural-problem-types.yml.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on niural.com and docs.niural.com.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header support published.
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    Webhooks are documented in prose only; no AsyncAPI document is published.
+    See asyncapi/niural-webhooks.yml.
+- id: json-api
+  conforms: false
+  evidence: >-
+    Responses use a bespoke {"data": ...} / {"data": {"items": []}, "next_cursor"}
+    envelope, not the JSON:API media type or structure.
+- id: cursor-pagination
+  conforms: true
+  evidence: >-
+    Documented cursor pagination with limit + next_cursor on all collection
+    endpoints. https://docs.niural.com/docs/pagination
+- id: idempotency-keys
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header or equivalent anywhere in the spec or docs; the
+    docs push idempotency onto the webhook consumer instead.
+- id: hmac-webhook-signatures
+  conforms: true
+  evidence: >-
+    HMAC-SHA256 over "{body}.{timestamp}" in X-Niural-Signatures with
+    X-Niural-Timestamp and multi-key rotation.
+- id: soc2-type2
+  conforms: true
+  evidence: >-
+    "SOC Type-2" badge published in the footer of niural.com and
+    niural.com/pricing (soc-type-2.svg). Niural also operates a trust center at
+    https://trust.niural.com/. The report itself is not public.
+- id: gdpr
+  conforms: unknown
+  evidence: >-
+    A privacy policy and cookie policy are published at
+    niural.com/legal/privacy-policy and /legal/cookie-policy, but no explicit GDPR
+    or DPA commitment was found on a public page.
+- id: pci-dss
+  conforms: unknown
+  evidence: Not claimed on any public Niural page.
+- id: iso-27001
+  conforms: unknown
+  evidence: Not claimed on any public Niural page.
