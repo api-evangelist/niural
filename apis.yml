@@ -28,26 +28,16 @@ tags:
 - Compliance
 - Fintech
 apis:
-- aid: niural:niural-public-api
-  name: Niural Public API
-  description: >-
-    The Niural Public API provides developers with access to Niural's core services, enabling seamless
-    integration with third-party applications. Fifteen operations across Authentication, Contracts,
-    Invoices and Transactions: exchange client credentials for a bearer JWT, create and sign
-    pay-on-demand contractor contracts, invite contractors to counter-sign, raise and list invoices
-    against a contract, list payment methods, estimate a transaction's amount and fees, and initiate,
-    list, read and update the transactions that settle those invoices — including on-chain pay-by-hash
-    settlement.
+- aid: niural:niural-authentication-api
+  name: Niural Authentication API
+  description: The Authentication API from Niural — 1 operation(s) for authentication.
   humanURL: https://docs.niural.com/
   baseURL: https://api-live.niural.com
   tags:
-  - Payroll
-  - Contractor Management
-  - Invoicing
-  - Payments
+  - Authentication
   properties:
   - type: OpenAPI
-    url: openapi/niural-public-api-openapi.yml
+    url: openapi/niural-authentication-api-openapi.yml
   - type: Documentation
     url: https://docs.niural.com/
   - type: APIReference
@@ -56,8 +46,72 @@ apis:
     url: https://docs.niural.com/docs/get-started
   - type: Authentication
     url: https://docs.niural.com/docs/authentications
-  - type: Overlay
-    url: overlays/niural-public-api-overlay.yaml
+  - type: Sandbox
+    url: sandbox/niural-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/niural-webhooks.yml
+- aid: niural:niural-contracts-api
+  name: Niural Contracts API
+  description: The Contracts API from Niural — 4 operation(s) for contracts.
+  humanURL: https://docs.niural.com/
+  baseURL: https://api-live.niural.com
+  tags:
+  - Contracts
+  properties:
+  - type: OpenAPI
+    url: openapi/niural-contracts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.niural.com/
+  - type: APIReference
+    url: https://docs.niural.com/reference/post_authenticate
+  - type: GettingStarted
+    url: https://docs.niural.com/docs/get-started
+  - type: Authentication
+    url: https://docs.niural.com/docs/authentications
+  - type: Sandbox
+    url: sandbox/niural-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/niural-webhooks.yml
+- aid: niural:niural-invoices-api
+  name: Niural Invoices API
+  description: The Invoices API from Niural — 2 operation(s) for invoices.
+  humanURL: https://docs.niural.com/
+  baseURL: https://api-live.niural.com
+  tags:
+  - Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/niural-invoices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.niural.com/
+  - type: APIReference
+    url: https://docs.niural.com/reference/post_authenticate
+  - type: GettingStarted
+    url: https://docs.niural.com/docs/get-started
+  - type: Authentication
+    url: https://docs.niural.com/docs/authentications
+  - type: Sandbox
+    url: sandbox/niural-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/niural-webhooks.yml
+- aid: niural:niural-transactions-api
+  name: Niural Transactions API
+  description: The Transactions API from Niural — 4 operation(s) for transactions.
+  humanURL: https://docs.niural.com/
+  baseURL: https://api-live.niural.com
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/niural-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.niural.com/
+  - type: APIReference
+    url: https://docs.niural.com/reference/post_authenticate
+  - type: GettingStarted
+    url: https://docs.niural.com/docs/get-started
+  - type: Authentication
+    url: https://docs.niural.com/docs/authentications
   - type: Sandbox
     url: sandbox/niural-sandbox.yml
   - type: Webhooks
@@ -99,7 +153,7 @@ common:
 - type: TrustCenter
   url: security/niural-trust-center.yml
 - type: OpenAPI
-  url: openapi/niural-public-api-openapi.yml
+  url: openapi/_original/niural-public-api-openapi.yml
 - type: Overlay
   url: overlays/niural-public-api-overlay.yaml
 - type: LLMsTxt
