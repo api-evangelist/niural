@@ -1,0 +1,1362 @@
+{
+  "item": [
+    {
+      "id": "5fd7a994-a7c0-468c-88cb-c0071accaebd",
+      "name": "Contracts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bbf3f917-36f3-4b9f-a502-7421e602ffbf",
+          "name": "Get a Contract",
+          "request": {
+            "name": "Get a Contract",
+            "description": {
+              "content": "Get contract details by contract ID\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "contract-id",
+                  "description": "(Required) The ID of the contract to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a183de2f-fff9-44ce-b2ca-2c72bb89686f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"contract_title\": \"Software Development Contract\",\n    \"contractor_type\": \"INDIVIDUAL\",\n    \"contractor_first_name\": \"John\",\n    \"contractor_last_name\": \"Doe\",\n    \"contractor_email\": \"john.doe@example.com\",\n    \"contractor_address\": {\n      \"country\": {\n        \"iso2\": \"US\",\n        \"name\": \"United States\"\n      },\n      \"state\": {\n        \"iso2\": \"NY\",\n        \"name\": \"New York\"\n      }\n    },\n    \"contractor_job_title\": \"Software Developer\",\n    \"scope_of_work\": \"Develop and maintain software applications.\",\n    \"contract_document_type\": \"SELF_CONTRACT\",\n    \"contract_id\": \"string\",\n    \"contractor_id\": \"string\",\n    \"contract_status\": \"CANCELLED\",\n    \"employer_id\": \"string\",\n    \"contract_type\": \"PAY_ON_DEMAND\",\n    \"contractor_middle_name\": null,\n    \"contractor_entity_name\": null,\n    \"contractor_start_date\": \"2023-01-01\",\n    \"contract_end_date\": \"2023-12-31\",\n    \"notice_period_in_days\": 30,\n    \"original_contract_reference_id\": \"12345\",\n    \"special_clause\": \"This contract is subject to annual review.\",\n    \"tags\": {},\n    \"contract_document\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64acf9ca-dfa6-4606-88c7-2d77caa52493",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb64d782-12a9-494b-8d0a-ee08e414732f",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3548b9c0-e24f-4f99-aef7-e39767c1c81c",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e8d268f-dd1a-4261-9f5e-801d0c9b33c6",
+          "name": "Create a new contract",
+          "request": {
+            "name": "Create a new contract",
+            "description": {
+              "content": "Create a new contract\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contract_title\": \"<string>\",\n  \"contractor_type\": \"<string>\",\n  \"contractor_first_name\": \"<string>\",\n  \"contractor_last_name\": \"<string>\",\n  \"contractor_email\": \"<email>\",\n  \"contractor_address\": {\n    \"country\": {\n      \"name\": \"<string>\",\n      \"iso2\": \"<string>\"\n    },\n    \"state\": null\n  },\n  \"contractor_job_title\": \"<string>\",\n  \"scope_of_work\": \"<string>\",\n  \"contract_document_type\": \"<string>\",\n  \"contract_type\": \"PAY_ON_DEMAND\",\n  \"contractor_middle_name\": null,\n  \"contractor_entity_name\": null,\n  \"contractor_start_date\": null,\n  \"contract_end_date\": null,\n  \"notice_period_in_days\": 0,\n  \"original_contract_reference_id\": null,\n  \"special_clause\": null,\n  \"tags\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8cb48aee-12ca-4b96-9c0f-077113504c30",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract_title\": \"Software Development Contract\",\n  \"contractor_type\": \"INDIVIDUAL\",\n  \"contractor_first_name\": \"John\",\n  \"contractor_last_name\": \"Doe\",\n  \"contractor_email\": \"john.doe@example.com\",\n  \"contractor_address\": {\n    \"country\": {\n      \"iso2\": \"US\",\n      \"name\": \"United States\"\n    },\n    \"state\": {\n      \"iso2\": \"NY\",\n      \"name\": \"New York\"\n    }\n  },\n  \"contractor_job_title\": \"Software Developer\",\n  \"scope_of_work\": \"Develop and maintain software applications.\",\n  \"contract_document_type\": \"SELF_CONTRACT\",\n  \"contract_type\": \"PAY_ON_DEMAND\",\n  \"contractor_middle_name\": null,\n  \"contractor_entity_name\": null,\n  \"contractor_start_date\": \"2023-01-01\",\n  \"contract_end_date\": \"2023-12-31\",\n  \"notice_period_in_days\": 30,\n  \"original_contract_reference_id\": \"12345\",\n  \"special_clause\": \"This contract is subject to annual review.\",\n  \"tags\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"contract_title\": \"Software Development Contract\",\n    \"contractor_type\": \"INDIVIDUAL\",\n    \"contractor_first_name\": \"John\",\n    \"contractor_last_name\": \"Doe\",\n    \"contractor_email\": \"john.doe@example.com\",\n    \"contractor_address\": {\n      \"country\": {\n        \"iso2\": \"US\",\n        \"name\": \"United States\"\n      },\n      \"state\": {\n        \"iso2\": \"NY\",\n        \"name\": \"New York\"\n      }\n    },\n    \"contractor_job_title\": \"Software Developer\",\n    \"scope_of_work\": \"Develop and maintain software applications.\",\n    \"contract_document_type\": \"SELF_CONTRACT\",\n    \"contract_id\": \"string\",\n    \"contractor_id\": \"string\",\n    \"contract_status\": \"DRAFT\",\n    \"employer_id\": \"string\",\n    \"contract_type\": \"PAY_ON_DEMAND\",\n    \"contractor_middle_name\": null,\n    \"contractor_entity_name\": null,\n    \"contractor_start_date\": \"2023-01-01\",\n    \"contract_end_date\": \"2023-12-31\",\n    \"notice_period_in_days\": 30,\n    \"original_contract_reference_id\": \"12345\",\n    \"special_clause\": \"This contract is subject to annual review.\",\n    \"tags\": {},\n    \"contract_document\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b19247b-1eee-4a28-9c04-660874bd37e5",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract_title\": \"Software Development Contract\",\n  \"contractor_type\": \"INDIVIDUAL\",\n  \"contractor_first_name\": \"John\",\n  \"contractor_last_name\": \"Doe\",\n  \"contractor_email\": \"john.doe@example.com\",\n  \"contractor_address\": {\n    \"country\": {\n      \"iso2\": \"US\",\n      \"name\": \"United States\"\n    },\n    \"state\": {\n      \"iso2\": \"NY\",\n      \"name\": \"New York\"\n    }\n  },\n  \"contractor_job_title\": \"Software Developer\",\n  \"scope_of_work\": \"Develop and maintain software applications.\",\n  \"contract_document_type\": \"SELF_CONTRACT\",\n  \"contract_type\": \"PAY_ON_DEMAND\",\n  \"contractor_middle_name\": null,\n  \"contractor_entity_name\": null,\n  \"contractor_start_date\": \"2023-01-01\",\n  \"contract_end_date\": \"2023-12-31\",\n  \"notice_period_in_days\": 30,\n  \"original_contract_reference_id\": \"12345\",\n  \"special_clause\": \"This contract is subject to annual review.\",\n  \"tags\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62877264-b360-43ff-824b-3bc8af1b6374",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract_title\": \"Software Development Contract\",\n  \"contractor_type\": \"INDIVIDUAL\",\n  \"contractor_first_name\": \"John\",\n  \"contractor_last_name\": \"Doe\",\n  \"contractor_email\": \"john.doe@example.com\",\n  \"contractor_address\": {\n    \"country\": {\n      \"iso2\": \"US\",\n      \"name\": \"United States\"\n    },\n    \"state\": {\n      \"iso2\": \"NY\",\n      \"name\": \"New York\"\n    }\n  },\n  \"contractor_job_title\": \"Software Developer\",\n  \"scope_of_work\": \"Develop and maintain software applications.\",\n  \"contract_document_type\": \"SELF_CONTRACT\",\n  \"contract_type\": \"PAY_ON_DEMAND\",\n  \"contractor_middle_name\": null,\n  \"contractor_entity_name\": null,\n  \"contractor_start_date\": \"2023-01-01\",\n  \"contract_end_date\": \"2023-12-31\",\n  \"notice_period_in_days\": 30,\n  \"original_contract_reference_id\": \"12345\",\n  \"special_clause\": \"This contract is subject to annual review.\",\n  \"tags\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\",\n  \"meta\": {\n    \"errors\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "396a3ca2-32b9-4e7d-88f7-6ebbed635af1",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract_title\": \"Software Development Contract\",\n  \"contractor_type\": \"INDIVIDUAL\",\n  \"contractor_first_name\": \"John\",\n  \"contractor_last_name\": \"Doe\",\n  \"contractor_email\": \"john.doe@example.com\",\n  \"contractor_address\": {\n    \"country\": {\n      \"iso2\": \"US\",\n      \"name\": \"United States\"\n    },\n    \"state\": {\n      \"iso2\": \"NY\",\n      \"name\": \"New York\"\n    }\n  },\n  \"contractor_job_title\": \"Software Developer\",\n  \"scope_of_work\": \"Develop and maintain software applications.\",\n  \"contract_document_type\": \"SELF_CONTRACT\",\n  \"contract_type\": \"PAY_ON_DEMAND\",\n  \"contractor_middle_name\": null,\n  \"contractor_entity_name\": null,\n  \"contractor_start_date\": \"2023-01-01\",\n  \"contract_end_date\": \"2023-12-31\",\n  \"notice_period_in_days\": 30,\n  \"original_contract_reference_id\": \"12345\",\n  \"special_clause\": \"This contract is subject to annual review.\",\n  \"tags\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df911431-ed38-44bc-8e91-70d337e40cc0",
+          "name": "Get contracts",
+          "request": {
+            "name": "Get contracts",
+            "description": {
+              "content": "Get a list of contracts\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Number of items to fetch. Default is 20"
+                },
+                {
+                  "disabled": false,
+                  "key": "next_cursor",
+                  "value": "<string>",
+                  "description": "Get the next set of items from the cursor provided in the previous response if any"
+                },
+                {
+                  "disabled": false,
+                  "key": "contract_type",
+                  "value": "<string>",
+                  "description": "Filter by contract type"
+                },
+                {
+                  "disabled": false,
+                  "key": "contractor_id",
+                  "value": "<string>",
+                  "description": "Filter by contractor ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "contract_status",
+                  "value": "<string>",
+                  "description": "Filter by contract status"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "24936942-b0f2-4219-9abb-d4bdba8c0e10",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "next_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contractor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"next_cursor\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96f52ae1-1f97-40d8-aa28-671338f23701",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "next_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contractor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8dfc5627-dbdc-4540-baec-0a6795237e09",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "next_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contractor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6bbe42c-56c2-40bb-a1a5-cbcc191453f7",
+          "name": "Invite a Contractor to Sign a Contract",
+          "request": {
+            "name": "Invite a Contractor to Sign a Contract",
+            "description": {
+              "content": "Invite a contractor to sign a contract by contract ID\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract-id",
+                "invite-contractor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "contract-id",
+                  "description": "(Required) The ID of the contract to send invitation for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message_for_contractor\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "193e1143-2f10-4210-af9f-9dd265d16fd6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id",
+                    "invite-contractor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to send invitation for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message_for_contractor\": \"Welcome to the team! Please review and sign the contract.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"contract_title\": \"Software Development Contract\",\n    \"contractor_type\": \"INDIVIDUAL\",\n    \"contractor_first_name\": \"John\",\n    \"contractor_last_name\": \"Doe\",\n    \"contractor_email\": \"john.doe@example.com\",\n    \"contractor_address\": {\n      \"country\": {\n        \"iso2\": \"US\",\n        \"name\": \"United States\"\n      },\n      \"state\": {\n        \"iso2\": \"NY\",\n        \"name\": \"New York\"\n      }\n    },\n    \"contractor_job_title\": \"Software Developer\",\n    \"scope_of_work\": \"Develop and maintain software applications.\",\n    \"contract_document_type\": \"SELF_CONTRACT\",\n    \"contract_id\": \"string\",\n    \"contractor_id\": \"string\",\n    \"contract_status\": \"<string>\",\n    \"employer_id\": \"string\",\n    \"contract_type\": \"PAY_ON_DEMAND\",\n    \"contractor_middle_name\": null,\n    \"contractor_entity_name\": null,\n    \"contractor_start_date\": \"2023-01-01\",\n    \"contract_end_date\": \"2023-12-31\",\n    \"notice_period_in_days\": 30,\n    \"original_contract_reference_id\": \"12345\",\n    \"special_clause\": \"This contract is subject to annual review.\",\n    \"tags\": {},\n    \"contract_document\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9141201-404f-4d45-aab1-1081e442ff74",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id",
+                    "invite-contractor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to send invitation for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message_for_contractor\": \"Welcome to the team! Please review and sign the contract.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89774b2e-b5e6-4ac4-af67-2f84ead54eb4",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id",
+                    "invite-contractor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to send invitation for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message_for_contractor\": \"Welcome to the team! Please review and sign the contract.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d66752c9-89e5-4384-9881-b641a0866138",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id",
+                    "invite-contractor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to send invitation for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message_for_contractor\": \"Welcome to the team! Please review and sign the contract.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38d98747-9e91-4a77-9052-3278ee62d41f",
+          "name": "Sign a Contract",
+          "request": {
+            "name": "Sign a Contract",
+            "description": {
+              "content": "Sign a contract by employer\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract-id",
+                "sign"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "contract-id",
+                  "description": "(Required) The ID of the contract to sign"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f8a20ba-d9ae-4552-8518-0176115026a3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id",
+                    "sign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to sign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"contract_title\": \"Software Development Contract\",\n    \"contractor_type\": \"INDIVIDUAL\",\n    \"contractor_first_name\": \"John\",\n    \"contractor_last_name\": \"Doe\",\n    \"contractor_email\": \"john.doe@example.com\",\n    \"contractor_address\": {\n      \"country\": {\n        \"iso2\": \"US\",\n        \"name\": \"United States\"\n      },\n      \"state\": {\n        \"iso2\": \"NY\",\n        \"name\": \"New York\"\n      }\n    },\n    \"contractor_job_title\": \"Software Developer\",\n    \"scope_of_work\": \"Develop and maintain software applications.\",\n    \"contract_document_type\": \"SELF_CONTRACT\",\n    \"contract_id\": \"string\",\n    \"contractor_id\": \"string\",\n    \"contract_status\": \"<string>\",\n    \"employer_id\": \"string\",\n    \"contract_type\": \"PAY_ON_DEMAND\",\n    \"contractor_middle_name\": null,\n    \"contractor_entity_name\": null,\n    \"contractor_start_date\": \"2023-01-01\",\n    \"contract_end_date\": \"2023-12-31\",\n    \"notice_period_in_days\": 30,\n    \"original_contract_reference_id\": \"12345\",\n    \"special_clause\": \"This contract is subject to annual review.\",\n    \"tags\": {},\n    \"contract_document\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccd616ba-56a7-43b4-8a4b-872a65450a19",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id",
+                    "sign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to sign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cbc4423-2991-484e-8f27-3936a349ebf3",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id",
+                    "sign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to sign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64b7c73f-e556-4b55-924a-4ba0e97c7138",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract-id",
+                    "sign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract-id",
+                      "description": "(Required) The ID of the contract to sign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-sandbox.niural.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ecbf9a03-e282-45a4-890f-d7c6f373f34b",
+    "name": "Niural Public Contracts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Niural Public API provides developers with access to Niural's core services, enabling seamless integration with third-party applications.",
+      "type": "text/plain"
+    }
+  }
+}

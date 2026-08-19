@@ -1,0 +1,729 @@
+{
+  "item": [
+    {
+      "id": "82ded6b3-d188-408b-a3da-ab6522701d15",
+      "name": "Invoices",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "65bd5f4e-1529-4764-9546-acfaddf61092",
+          "name": "Create an invoice",
+          "request": {
+            "name": "Create an invoice",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contract_id\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"invoice_title\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"issued_date\": \"<date>\",\n  \"due_date\": \"<date>\",\n  \"cycle_start_date\": null,\n  \"cycle_end_date\": null,\n  \"tags\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0e3c3204-533e-4617-8fe9-7034d4b561be",
+              "name": "Invoice created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract_id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"currency\": \"<string>\",\n  \"invoice_title\": \"Consulting Services Invoice\",\n  \"amount\": \"<string>\",\n  \"issued_date\": \"2023-02-01\",\n  \"due_date\": \"2023-02-15\",\n  \"cycle_start_date\": \"2023-01-01\",\n  \"cycle_end_date\": \"2023-01-31\",\n  \"tags\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"invoice_id\": \"string\",\n    \"currency\": \"<string>\",\n    \"status\": \"PAYMENT_PROCESSING\",\n    \"total_amount\": \"string\",\n    \"issued_date\": \"1977-06-04\",\n    \"due_date\": \"1967-06-16\",\n    \"payer_id\": \"string\",\n    \"payer_name\": \"string\",\n    \"payer_email\": \"CqAj@WdVuGefAbG.nvq\",\n    \"payee_id\": null,\n    \"payee_name\": null,\n    \"payee_email\": null,\n    \"invoice_title\": null,\n    \"contract_id\": null,\n    \"contractor_id\": null,\n    \"cycle_start_date\": null,\n    \"cycle_end_date\": null,\n    \"tags\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70061cd4-6144-4dac-bd8e-35f651b02c30",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract_id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"currency\": \"<string>\",\n  \"invoice_title\": \"Consulting Services Invoice\",\n  \"amount\": \"<string>\",\n  \"issued_date\": \"2023-02-01\",\n  \"due_date\": \"2023-02-15\",\n  \"cycle_start_date\": \"2023-01-01\",\n  \"cycle_end_date\": \"2023-01-31\",\n  \"tags\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c548fff7-4986-4026-819c-bd93a0bfed84",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract_id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"currency\": \"<string>\",\n  \"invoice_title\": \"Consulting Services Invoice\",\n  \"amount\": \"<string>\",\n  \"issued_date\": \"2023-02-01\",\n  \"due_date\": \"2023-02-15\",\n  \"cycle_start_date\": \"2023-01-01\",\n  \"cycle_end_date\": \"2023-01-31\",\n  \"tags\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7e4868f-c74c-41bf-af90-409b5ed16bda",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract_id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"currency\": \"<string>\",\n  \"invoice_title\": \"Consulting Services Invoice\",\n  \"amount\": \"<string>\",\n  \"issued_date\": \"2023-02-01\",\n  \"due_date\": \"2023-02-15\",\n  \"cycle_start_date\": \"2023-01-01\",\n  \"cycle_end_date\": \"2023-01-31\",\n  \"tags\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\",\n  \"meta\": {\n    \"errors\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58aad8a1-df67-4765-9fab-68e61ba7909f",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract_id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"currency\": \"<string>\",\n  \"invoice_title\": \"Consulting Services Invoice\",\n  \"amount\": \"<string>\",\n  \"issued_date\": \"2023-02-01\",\n  \"due_date\": \"2023-02-15\",\n  \"cycle_start_date\": \"2023-01-01\",\n  \"cycle_end_date\": \"2023-01-31\",\n  \"tags\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aea666a6-a65b-41c1-a4ea-dd287fac2be9",
+          "name": "Get a list of invoices",
+          "request": {
+            "name": "Get a list of invoices",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Number of items to fetch. Default is 20"
+                },
+                {
+                  "disabled": false,
+                  "key": "next_cursor",
+                  "value": "<string>",
+                  "description": "Get the next set of items from the cursor provided in the previous response if any"
+                },
+                {
+                  "disabled": false,
+                  "key": "contract_type",
+                  "value": "<string>",
+                  "description": "Filter invoices by the type of contract"
+                },
+                {
+                  "disabled": false,
+                  "key": "contract_id",
+                  "value": "<string>",
+                  "description": "Filter invoices by the contract ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "invoice_status",
+                  "value": "<string>",
+                  "description": "Filter invoices by their status"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "066e4c4c-2b23-48e2-856c-85ee33b8bd9d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "next_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "invoice_status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"invoice_id\": \"string\",\n    \"currency\": \"<string>\",\n    \"status\": \"<string>\",\n    \"total_amount\": \"string\",\n    \"issued_date\": \"1998-05-28\",\n    \"due_date\": \"2000-03-01\",\n    \"payer_id\": \"string\",\n    \"payer_name\": \"string\",\n    \"payer_email\": \"p5SxZ@oBvRnUxGZqsrfimCIwGJozlWzsRdDp.pw\",\n    \"payee_id\": null,\n    \"payee_name\": null,\n    \"payee_email\": null,\n    \"invoice_title\": null,\n    \"contract_id\": null,\n    \"contractor_id\": null,\n    \"cycle_start_date\": null,\n    \"cycle_end_date\": null,\n    \"tags\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74f6765a-8072-4e04-ab1e-411085b50f20",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "next_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "invoice_status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18efee1a-8908-4683-9bc6-3c6d3aac72ff",
+          "name": "Get a single invoice",
+          "request": {
+            "name": "Get a single invoice",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "invoice-id",
+                  "description": "(Required) The ID of the invoice to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4dbbe90-aa2b-44e6-8c88-5c2071d229fc",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice-id",
+                      "description": "(Required) The ID of the invoice to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"invoice_id\": \"string\",\n    \"currency\": \"<string>\",\n    \"status\": \"<string>\",\n    \"total_amount\": \"string\",\n    \"issued_date\": \"1998-05-28\",\n    \"due_date\": \"2000-03-01\",\n    \"payer_id\": \"string\",\n    \"payer_name\": \"string\",\n    \"payer_email\": \"p5SxZ@oBvRnUxGZqsrfimCIwGJozlWzsRdDp.pw\",\n    \"payee_id\": null,\n    \"payee_name\": null,\n    \"payee_email\": null,\n    \"invoice_title\": null,\n    \"contract_id\": null,\n    \"contractor_id\": null,\n    \"cycle_start_date\": null,\n    \"cycle_end_date\": null,\n    \"tags\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e7b6e23-9aae-45c5-839d-34d45f73d8f4",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice-id",
+                      "description": "(Required) The ID of the invoice to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9e0ee23-662c-4f63-945d-e6b07c77752b",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice-id",
+                      "description": "(Required) The ID of the invoice to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-sandbox.niural.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ea11276a-de86-4137-90f7-6590514f490e",
+    "name": "Niural Public Invoices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Niural Public API provides developers with access to Niural's core services, enabling seamless integration with third-party applications.",
+      "type": "text/plain"
+    }
+  }
+}

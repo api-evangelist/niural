@@ -1,0 +1,1207 @@
+openapi: 3.2.0
+info:
+  title: Niural Public Contracts API
+  version: '1.0'
+  description: The Niural Public API provides developers with access to Niural's core services, enabling seamless integration with third-party applications.
+servers:
+- url: https://api-sandbox.niural.com
+  description: Sandbox environment
+- url: https://api-live.niural.com
+  description: Live environment
+security:
+- BearerAuth: []
+tags:
+- name: Contracts
+paths:
+  /contracts/{contract-id}:
+    get:
+      tags:
+      - Contracts
+      summary: Get a Contract
+      description: 'Get contract details by contract ID
+
+        '
+      parameters:
+      - name: contract-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the contract to retrieve
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    oneOf:
+                    - $ref: '#/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data'
+                    - title: GenericContractSingleResponse
+                      properties:
+                        contract_type:
+                          description: Type of the contract
+                          example: PAY_ON_DEMAND
+                          title: Contract Type
+                          enum:
+                          - FIXED
+                          - MILESTONE
+                          - PAY_AS_YOU_GO
+                          - EOR
+                          - PAY_ON_DEMAND
+                          type: string
+                        contract_title:
+                          description: Title of the contract
+                          example: Software Development Contract
+                          minLength: 2
+                          title: Contract Title
+                          type: string
+                        contractor_type:
+                          $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_type'
+                          description: Type of the contractor
+                          example: INDIVIDUAL
+                          title: Contractor Type
+                        contractor_first_name:
+                          description: First name of the contractor
+                          example: John
+                          title: Contractor First Name
+                          type: string
+                        contractor_middle_name:
+                          default: null
+                          description: Middle name of the contractor
+                          title: Contractor Middle Name
+                          minLength: 0
+                          type:
+                          - string
+                          - 'null'
+                        contractor_last_name:
+                          description: Last name of the contractor
+                          example: Doe
+                          title: Contractor Last Name
+                          type: string
+                        contractor_entity_name:
+                          default: null
+                          description: Entity name of the contractor if applicable
+                          title: Contractor Entity Name
+                          type:
+                          - string
+                          - 'null'
+                        contractor_email:
+                          description: Email address of the contractor
+                          example: john.doe@example.com
+                          format: email
+                          title: Contractor Email
+                          type: string
+                        contractor_address:
+                          $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_address'
+                          description: Address of the contractor
+                          example:
+                            country:
+                              iso2: US
+                              name: United States
+                            state:
+                              iso2: NY
+                              name: New York
+                          title: Contractor Address
+                        contractor_job_title:
+                          description: Job title of the contractor
+                          example: Software Developer
+                          title: Contractor Job Title
+                          type: string
+                        scope_of_work:
+                          description: Detailed description of the scope of work
+                          example: Develop and maintain software applications.
+                          maxLength: 10000
+                          minLength: 0
+                          title: Scope of Work
+                          type: string
+                        contractor_start_date:
+                          default: null
+                          description: Start date of the contract
+                          example: '2023-01-01'
+                          title: Contractor Start Date
+                          format: date
+                          type:
+                          - string
+                          - 'null'
+                        contract_end_date:
+                          default: null
+                          description: End date of the contract
+                          example: '2023-12-31'
+                          title: Contract End Date
+                          format: date
+                          type:
+                          - string
+                          - 'null'
+                        contract_id:
+                          description: Unique identifier for the contract
+                          title: Contract ID
+                          type: string
+                        contractor_id:
+                          description: Unique identifier for the contractor
+                          title: Contractor ID
+                          type: string
+                        contract_status:
+                          $ref: '#/paths/~1contracts/get/parameters/4/schema'
+                          description: Current status of the contract
+                          title: Contract Status
+                        employer_id:
+                          description: Unique identifier for the employer
+                          title: Employer ID
+                          type: string
+                        tags:
+                          default: {}
+                          description: Additional data provided on the resource during creation.
+                          example: {}
+                          title: Tags
+                          type:
+                          - object
+                          - 'null'
+                        contract_document:
+                          default: null
+                          description: Document associated with the contract
+                          title: Contract Document
+                          $ref: '#/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data/properties/contract_document'
+                      required:
+                      - contract_type
+                      - contract_title
+                      - contractor_type
+                      - contractor_first_name
+                      - contractor_last_name
+                      - contractor_email
+                      - contractor_address
+                      - contractor_job_title
+                      - scope_of_work
+                      - contract_id
+                      - contractor_id
+                      - contract_status
+                      - employer_id
+                      type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /contracts:
+    post:
+      tags:
+      - Contracts
+      summary: Create a new contract
+      description: 'Create a new contract
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - title: Pay On Demand Contract Request
+                properties:
+                  contract_type:
+                    default: PAY_ON_DEMAND
+                    description: Type of the contract
+                    enum:
+                    - PAY_ON_DEMAND
+                    example: PAY_ON_DEMAND
+                    title: Contract Type
+                    type: string
+                  contract_title:
+                    description: Title of the contract
+                    example: Software Development Contract
+                    minLength: 2
+                    title: Contract Title
+                    type: string
+                  contractor_type:
+                    description: Type of the contractor
+                    example: INDIVIDUAL
+                    title: Contractor Type
+                    enum:
+                    - INDIVIDUAL
+                    - ENTITY
+                    type: string
+                  contractor_first_name:
+                    description: First name of the contractor
+                    example: John
+                    title: Contractor First Name
+                    type: string
+                  contractor_middle_name:
+                    default: null
+                    description: Middle name of the contractor
+                    title: Contractor Middle Name
+                    minLength: 0
+                    type:
+                    - string
+                    - 'null'
+                  contractor_last_name:
+                    description: Last name of the contractor
+                    example: Doe
+                    title: Contractor Last Name
+                    type: string
+                  contractor_entity_name:
+                    default: null
+                    description: Entity name of the contractor if applicable
+                    title: Contractor Entity Name
+                    type:
+                    - string
+                    - 'null'
+                  contractor_email:
+                    description: Email address of the contractor
+                    example: john.doe@example.com
+                    format: email
+                    title: Contractor Email
+                    type: string
+                  contractor_address:
+                    description: Address of the contractor
+                    example:
+                      country:
+                        iso2: US
+                        name: United States
+                      state:
+                        iso2: NY
+                        name: New York
+                    title: Contractor Address
+                    properties:
+                      country:
+                        title: Country
+                        properties:
+                          name:
+                            title: Name
+                            type: string
+                          iso2:
+                            title: CountryISO2
+                            enum:
+                            - FO
+                            - CF
+                            - BQ
+                            - JE
+                            - AQ
+                            - XK
+                            - YT
+                            - PY
+                            - RU
+                            - FI
+                            - AD
+                            - MW
+                            - OM
+                            - CA
+                            - MV
+                            - AW
+                            - TF
+                            - CD
+                            - ID
+                            - NP
+                            - MX
+                            - ML
+                            - LU
+                            - AM
+                            - SE
+                            - FK
+                            - AX
+                            - UY
+                            - DO
+                            - TH
+                            - GP
+                            - MR
+                            - TR
+                            - NF
+                            - GQ
+                            - CY
+                            - KE
+                            - VA
+                            - MF
+                            - RS
+                            - SD
+                            - HU
+                            - GL
+                            - NE
+                            - PG
+                            - MZ
+                            - PS
+                            - MS
+                            - GG
+                            - VG
+                            - IR
+                            - YE
+                            - GS
+                            - TT
+                            - CO
+                            - GM
+                            - GN
+                            - NI
+                            - HT
+                            - BR
+                            - BY
+                            - WS
+                            - GW
+                            - ZA
+                            - CZ
+                            - JM
+                            - SJ
+                            - BO
+                            - CX
+                            - AO
+                            - SG
+                            - CM
+                            - ET
+                            - IS
+                            - MH
+                            - SM
+                            - BD
+                            - BV
+                            - BA
+                            - GA
+                            - LS
+                            - PW
+                            - PR
+                            - VE
+                            - DM
+                            - RO
+                            - BL
+                            - GB
+                            - PE
+                            - IT
+                            - TG
+                            - AS
+                            - MK
+                            - ZW
+                            - UM
+                            - CN
+                            - NU
+                            - SX
+                            - FJ
+                            - GR
+                            - IL
+                            - BJ
+                            - MU
+                            - MC
+                            - VI
+                            - EC
+                            - SI
+                            - TK
+                            - BZ
+                            - SK
+                            - TJ
+                            - US
+                            - SB
+                            - TW
+                            - KH
+                            - BE
+                            - CL
+                            - AT
+                            - KW
+                            - FM
+                            - GH
+                            - MD
+                            - NA
+                            - AU
+                            - VC
+                            - BI
+                            - ME
+                            - KZ
+                            - KN
+                            - SO
+                            - ZM
+                            - PL
+                            - HK
+                            - BN
+                            - GU
+                            - HR
+                            - DK
+                            - NZ
+                            - ES
+                            - LK
+                            - EG
+                            - SZ
+                            - AI
+                            - BM
+                            - NG
+                            - LI
+                            - TL
+                            - UA
+                            - ST
+                            - LC
+                            - IE
+                            - BB
+                            - GI
+                            - PN
+                            - VU
+                            - PA
+                            - MO
+                            - MP
+                            - IM
+                            - TZ
+                            - MQ
+                            - TO
+                            - VN
+                            - JO
+                            - KI
+                            - MY
+                            - MT
+                            - SN
+                            - SS
+                            - CV
+                            - TM
+                            - AL
+                            - KR
+                            - CH
+                            - BS
+                            - DJ
+                            - SA
+                            - PF
+                            - LY
+                            - SR
+                            - KG
+                            - GY
+                            - MG
+                            - BW
+                            - FR
+                            - AE
+                            - AG
+                            - GD
+                            - HN
+                            - CR
+                            - DZ
+                            - AZ
+                            - CK
+                            - SV
+                            - LA
+                            - CU
+                            - GF
+                            - BG
+                            - LR
+                            - BF
+                            - NC
+                            - QA
+                            - EH
+                            - WF
+                            - PM
+                            - CG
+                            - BT
+                            - CW
+                            - SC
+                            - NR
+                            - PK
+                            - IN
+                            - RE
+                            - MN
+                            - MM
+                            - KP
+                            - SH
+                            - UZ
+                            - IQ
+                            - TN
+                            - MA
+                            - NL
+                            - RW
+                            - TC
+                            - PH
+                            - GT
+                            - JP
+                            - SY
+                            - KM
+                            - EE
+                            - UG
+                            - TV
+                            - TD
+                            - PT
+                            - LT
+                            - BH
+                            - DE
+                            - SL
+                            - CI
+                            - IO
+                            - LV
+                            - CC
+                            - HM
+                            - AR
+                            - AF
+                            - LB
+                            - 'NO'
+                            - GE
+                            - KY
+                            - ER
+                            type: string
+                        required:
+                        - name
+                        - iso2
+                        type: object
+                      state:
+                        default: null
+                        title: State
+                        properties:
+                          name:
+                            title: Name
+                            type: string
+                          iso2:
+                            maxLength: 10
+                            minLength: 1
+                            title: Iso2
+                            type: string
+                        required:
+                        - name
+                        - iso2
+                        type:
+                        - object
+                        - 'null'
+                    required:
+                    - country
+                    type: object
+                  contractor_job_title:
+                    description: Job title of the contractor
+                    example: Software Developer
+                    title: Contractor Job Title
+                    type: string
+                  scope_of_work:
+                    description: Detailed description of the scope of work
+                    example: Develop and maintain software applications.
+                    maxLength: 10000
+                    minLength: 0
+                    title: Scope of Work
+                    type: string
+                  contractor_start_date:
+                    default: null
+                    description: Start date of the contract
+                    example: '2023-01-01'
+                    title: Contractor Start Date
+                    format: date
+                    type:
+                    - string
+                    - 'null'
+                  contract_end_date:
+                    default: null
+                    description: End date of the contract
+                    example: '2023-12-31'
+                    title: Contract End Date
+                    format: date
+                    type:
+                    - string
+                    - 'null'
+                  notice_period_in_days:
+                    default: 0
+                    description: Notice period in days for the contract
+                    example: 30
+                    title: Notice Period in Days
+                    minimum: 0
+                    type:
+                    - integer
+                    - 'null'
+                  contract_document_type:
+                    description: Type of the contract document
+                    example: SELF_CONTRACT
+                    title: Contract Document Type
+                    enum:
+                    - SELF_CONTRACT
+                    - NIURAL_CONTRACT
+                    type: string
+                  original_contract_reference_id:
+                    default: null
+                    description: Reference ID of the original contract
+                    example: '12345'
+                    title: Original Contract Reference ID
+                    type:
+                    - string
+                    - 'null'
+                  special_clause:
+                    default: null
+                    description: Special clause in the contract
+                    example: This contract is subject to annual review.
+                    title: Special Clause
+                    maxLength: 10000
+                    minLength: 0
+                    type:
+                    - string
+                    - 'null'
+                  tags:
+                    default: {}
+                    description: Additional data you would like to provide on the resource.
+                    example: {}
+                    title: Tags
+                    type:
+                    - object
+                    - 'null'
+                required:
+                - contract_title
+                - contractor_type
+                - contractor_first_name
+                - contractor_last_name
+                - contractor_email
+                - contractor_address
+                - contractor_job_title
+                - scope_of_work
+                - contract_document_type
+                type: object
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    oneOf:
+                    - $ref: '#/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '422':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+    get:
+      tags:
+      - Contracts
+      summary: Get contracts
+      description: 'Get a list of contracts
+
+        '
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Number of items to fetch. Default is 20
+      - name: next_cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Get the next set of items from the cursor provided in the previous response if any
+      - name: contract_type
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by contract type
+      - name: contractor_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by contractor ID
+      - name: contract_status
+        in: query
+        required: false
+        schema:
+          title: ContractStatus
+          enum:
+          - DRAFT
+          - SIGNED_BY_EMPLOYER
+          - CONTRACTOR_SIGN_PENDING
+          - AMENDMENT_REQUESTED
+          - ACTIVE
+          - ENDING_SOON
+          - ENDED
+          - CANCELLED
+          - INACTIVE
+          type: string
+        description: Filter by contract status
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: ContractListResponse
+                    properties:
+                      items:
+                        default: []
+                        items:
+                          title: ContractListResponseItem
+                          properties:
+                            contract_type:
+                              $ref: '#/paths/~1contracts~1%7Bcontract-id%7D/get/responses/200/content/application~1json/schema/properties/data/oneOf/1/properties/contract_type'
+                              description: Type of the contract
+                              example: PAY_ON_DEMAND
+                              title: Contract Type
+                            contract_title:
+                              description: Title of the contract
+                              example: Software Development Contract
+                              minLength: 2
+                              title: Contract Title
+                              type: string
+                            contractor_type:
+                              $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_type'
+                              description: Type of the contractor
+                              example: INDIVIDUAL
+                              title: Contractor Type
+                            contractor_first_name:
+                              description: First name of the contractor
+                              example: John
+                              title: Contractor First Name
+                              type: string
+                            contractor_middle_name:
+                              default: null
+                              description: Middle name of the contractor
+                              title: Contractor Middle Name
+                              minLength: 0
+                              type:
+                              - string
+                              - 'null'
+                            contractor_last_name:
+                              description: Last name of the contractor
+                              example: Doe
+                              title: Contractor Last Name
+                              type: string
+                            contractor_entity_name:
+                              default: null
+                              description: Entity name of the contractor if applicable
+                              title: Contractor Entity Name
+                              type:
+                              - string
+                              - 'null'
+                            contractor_email:
+                              description: Email address of the contractor
+                              example: john.doe@example.com
+                              format: email
+                              title: Contractor Email
+                              type: string
+                            contractor_address:
+                              $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_address'
+                              description: Address of the contractor
+                              example:
+                                country:
+                                  iso2: US
+                                  name: United States
+                                state:
+                                  iso2: NY
+                                  name: New York
+                              title: Contractor Address
+                            contractor_job_title:
+                              description: Job title of the contractor
+                              example: Software Developer
+                              title: Contractor Job Title
+                              type: string
+                            scope_of_work:
+                              description: Detailed description of the scope of work
+                              example: Develop and maintain software applications.
+                              maxLength: 10000
+                              minLength: 0
+                              title: Scope of Work
+                              type: string
+                            contractor_start_date:
+                              default: null
+                              description: Start date of the contract
+                              example: '2023-01-01'
+                              title: Contractor Start Date
+                              format: date
+                              type:
+                              - string
+                              - 'null'
+                            contract_end_date:
+                              default: null
+                              description: End date of the contract
+                              example: '2023-12-31'
+                              title: Contract End Date
+                              format: date
+                              type:
+                              - string
+                              - 'null'
+                            contract_id:
+                              description: Unique identifier for the contract
+                              title: Contract ID
+                              type: string
+                            contractor_id:
+                              description: Unique identifier for the contractor
+                              title: Contractor ID
+                              type: string
+                            contract_status:
+                              $ref: '#/paths/~1contracts/get/parameters/4/schema'
+                              description: Current status of the contract
+                              title: Contract Status
+                            employer_id:
+                              description: Unique identifier for the employer
+                              title: Employer ID
+                              type: string
+                            tags:
+                              default: {}
+                              description: Additional data provided on the resource during creation.
+                              example: {}
+                              title: Tags
+                              type:
+                              - object
+                              - 'null'
+                          required:
+                          - contract_type
+                          - contract_title
+                          - contractor_type
+                          - contractor_first_name
+                          - contractor_last_name
+                          - contractor_email
+                          - contractor_address
+                          - contractor_job_title
+                          - scope_of_work
+                          - contract_id
+                          - contractor_id
+                          - contract_status
+                          - employer_id
+                          type: object
+                        title: Items
+                        type: array
+                      next_cursor:
+                        default: null
+                        title: Next Cursor
+                        type:
+                        - string
+                        - 'null'
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /contracts/{contract-id}/invite-contractor:
+    patch:
+      tags:
+      - Contracts
+      summary: Invite a Contractor to Sign a Contract
+      description: 'Invite a contractor to sign a contract by contract ID
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: ContractorInvitationRequestModel
+              properties:
+                message_for_contractor:
+                  default: null
+                  description: Optional message to be sent to the contractor
+                  example: Welcome to the team! Please review and sign the contract.
+                  title: Message for Contractor
+                  type:
+                  - string
+                  - 'null'
+              type: object
+        required: true
+      parameters:
+      - name: contract-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the contract to send invitation for
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /contracts/{contract-id}/sign:
+    patch:
+      tags:
+      - Contracts
+      summary: Sign a Contract
+      description: 'Sign a contract by employer
+
+        '
+      parameters:
+      - name: contract-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the contract to sign
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: Pay On Demand Contract Response
+                    properties:
+                      contract_type:
+                        default: PAY_ON_DEMAND
+                        description: Type of the contract
+                        enum:
+                        - PAY_ON_DEMAND
+                        example: PAY_ON_DEMAND
+                        title: Contract Type
+                        type: string
+                      contract_title:
+                        description: Title of the contract
+                        example: Software Development Contract
+                        minLength: 2
+                        title: Contract Title
+                        type: string
+                      contractor_type:
+                        $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_type'
+                        description: Type of the contractor
+                        example: INDIVIDUAL
+                        title: Contractor Type
+                      contractor_first_name:
+                        description: First name of the contractor
+                        example: John
+                        title: Contractor First Name
+                        type: string
+                      contractor_middle_name:
+                        default: null
+                        description: Middle name of the contractor
+                        title: Contractor Middle Name
+                        minLength: 0
+                        type:
+                        - string
+                        - 'null'
+                      contractor_last_name:
+                        description: Last name of the contractor
+                        example: Doe
+                        title: Contractor Last Name
+                        type: string
+                      contractor_entity_name:
+                        default: null
+                        description: Entity name of the contractor if applicable
+                        title: Contractor Entity Name
+                        type:
+                        - string
+                        - 'null'
+                      contractor_email:
+                        description: Email address of the contractor
+                        example: john.doe@example.com
+                        format: email
+                        title: Contractor Email
+                        type: string
+                      contractor_address:
+                        $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contractor_address'
+                        description: Address of the contractor
+                        example:
+                          country:
+                            iso2: US
+                            name: United States
+                          state:
+                            iso2: NY
+                            name: New York
+                        title: Contractor Address
+                      contractor_job_title:
+                        description: Job title of the contractor
+                        example: Software Developer
+                        title: Contractor Job Title
+                        type: string
+                      scope_of_work:
+                        description: Detailed description of the scope of work
+                        example: Develop and maintain software applications.
+                        maxLength: 10000
+                        minLength: 0
+                        title: Scope of Work
+                        type: string
+                      contractor_start_date:
+                        default: null
+                        description: Start date of the contract
+                        example: '2023-01-01'
+                        title: Contractor Start Date
+                        format: date
+                        type:
+                        - string
+                        - 'null'
+                      contract_end_date:
+                        default: null
+                        description: End date of the contract
+                        example: '2023-12-31'
+                        title: Contract End Date
+                        format: date
+                        type:
+                        - string
+                        - 'null'
+                      notice_period_in_days:
+                        default: 0
+                        description: Notice period in days for the contract
+                        example: 30
+                        title: Notice Period in Days
+                        minimum: 0
+                        type:
+                        - integer
+                        - 'null'
+                      contract_document_type:
+                        $ref: '#/paths/~1contracts/post/requestBody/content/application~1json/schema/oneOf/0/properties/contract_document_type'
+                        description: Type of the contract document
+                        example: SELF_CONTRACT
+                        title: Contract Document Type
+                      original_contract_reference_id:
+                        default: null
+                        description: Reference ID of the original contract
+                        example: '12345'
+                        title: Original Contract Reference ID
+                        type:
+                        - string
+                        - 'null'
+                      special_clause:
+                        default: null
+                        description: Special clause in the contract
+                        example: This contract is subject to annual review.
+                        title: Special Clause
+                        maxLength: 10000
+                        minLength: 0
+                        type:
+                        - string
+                        - 'null'
+                      tags:
+                        default: {}
+                        description: Additional data provided on the resource during creation.
+                        example: {}
+                        title: Tags
+                        type:
+                        - object
+                        - 'null'
+                      contract_id:
+                        description: Unique identifier for the contract
+                        title: Contract ID
+                        type: string
+                      contractor_id:
+                        description: Unique identifier for the contractor
+                        title: Contractor ID
+                        type: string
+                      contract_status:
+                        $ref: '#/paths/~1contracts/get/parameters/4/schema'
+                        description: Current status of the contract
+                        title: Contract Status
+                      employer_id:
+                        description: Unique identifier for the employer
+                        title: Employer ID
+                        type: string
+                      contract_document:
+                        default: null
+                        description: Document associated with the contract
+                        title: Contract Document
+                        properties:
+                          document_title:
+                            title: Document Title
+                            type: string
+                          document_url:
+                            format: uri
+                            maxLength: 2083
+                            minLength: 1
+                            title: Document Url
+                            type: string
+                          s3_console_url:
+                            default: null
+                            title: S3 Console Url
+                            format: uri
+                            maxLength: 2083
+                            minLength: 1
+                            type:
+                            - string
+                            - 'null'
+                          region:
+                            default: us-east-1
+                            title: Region
+                            enum:
+                            - us-east-1
+                            - us-east-2
+                            - us-west-1
+                            - us-west-2
+                            - eu-west-1
+                            - ap-southeast-1
+                            - ap-northeast-1
+                            type:
+                            - string
+                            - 'null'
+                        required:
+                        - document_title
+                        - document_url
+                        type:
+                        - object
+                        - 'null'
+                    required:
+                    - contract_title
+                    - contractor_type
+                    - contractor_first_name
+                    - contractor_last_name
+                    - contractor_email
+                    - contractor_address
+                    - contractor_job_title
+                    - scope_of_work
+                    - contract_document_type
+                    - contract_id
+                    - contractor_id
+                    - contract_status
+                    - employer_id
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+components:
+  responses:
+    ValidationErrorResponse:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+              meta:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                description: Additional information of validation errors
+    NotFoundResponse:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    BadRequestResponse:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    ServerErrorResponse:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

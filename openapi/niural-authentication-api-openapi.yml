@@ -1,0 +1,131 @@
+openapi: 3.2.0
+info:
+  title: Niural Public Authentication API
+  version: '1.0'
+  description: The Niural Public API provides developers with access to Niural's core services, enabling seamless integration with third-party applications.
+servers:
+- url: https://api-sandbox.niural.com
+  description: Sandbox environment
+- url: https://api-live.niural.com
+  description: Live environment
+security:
+- BearerAuth: []
+tags:
+- name: Authentication
+paths:
+  /authenticate:
+    post:
+      tags:
+      - Authentication
+      summary: Obtain Auth token
+      description: 'Exchange the client credentials (ID and secret) for an auth token. Use the auth token in the Authorization header for requests to other endpoints.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: AuthenticationRequest
+              properties:
+                client_id:
+                  description: The client ID provided by Niural
+                  example: 550e8400-e29b-41d4-a716-446655440000
+                  title: Client ID
+                  type: string
+                client_secret:
+                  description: The client secret associated with the client ID
+                  example: a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
+                  title: Client Secret
+                  type: string
+              required:
+              - client_id
+              - client_secret
+              type: object
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: AuthenticationResponse
+                    properties:
+                      access_token:
+                        description: The token used to access the API
+                        title: Access Token
+                        type: string
+                      refresh_token:
+                        description: The token used to refresh the access token
+                        title: Refresh Token
+                        type: string
+                      expires_in:
+                        description: The duration in seconds until the access token expires
+                        title: Expires In
+                        type: integer
+                    required:
+                    - access_token
+                    - refresh_token
+                    - expires_in
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '422':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+      security: []
+components:
+  responses:
+    ServerErrorResponse:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    ValidationErrorResponse:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+              meta:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                description: Additional information of validation errors
+    BadRequestResponse:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

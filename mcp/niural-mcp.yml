@@ -2,22 +2,18 @@ generated: '2026-08-04'
 method: derived
 status: candidate
 source: openapi/niural-public-api-openapi.yml
-description: >-
-  Niural operates no hosted or remote MCP server. Searched docs.niural.com (full
-  llms.txt page index), niural.com, the Niural GitHub org, npm and the public MCP
-  registries — no result; mcp.niural.com does not resolve. This is a CANDIDATE
-  tool surface derived mechanically from the 15 operations in the published
-  Niural Public API OpenAPI. No MCP endpoint is implied to exist. Every tool
-  inherits its real input contract from the parameters and requestBody of the
-  operation it names.
+description: Niural operates no hosted or remote MCP server. Searched docs.niural.com (full llms.txt page
+  index), niural.com, the Niural GitHub org, npm and the public MCP registries — no result; mcp.niural.com
+  does not resolve. This is a CANDIDATE tool surface derived mechanically from the 15 operations in the
+  published Niural Public API OpenAPI. No MCP endpoint is implied to exist. Every tool inherits its real
+  input contract from the parameters and requestBody of the operation it names.
 server:
   name: niural
   transport: http
   url: null
 auth:
-  note: >-
-    Every tool other than obtain_auth_token requires a bearer access token from
-    POST /authenticate (client_id + client_secret), valid 3600 seconds.
+  note: Every tool other than obtain_auth_token requires a bearer access token from POST /authenticate
+    (client_id + client_secret), valid 3600 seconds.
 tools:
 - name: obtain_auth_token
   description: Exchange client credentials for a bearer access token and refresh token.
@@ -64,12 +60,15 @@ tools:
 - name: update_pay_by_hash_transaction
   description: Attach an on-chain payment hash and chain id to a pay-by-hash transaction.
   source_operation: openapi/niural-public-api-openapi.yml#PATCH /transactions/{transaction-id}
-agent_safety_note: >-
-  initiate_transaction moves real money and Niural publishes no idempotency-key
-  mechanism, so a retried call is not deduplicated. Any agent binding must treat
-  it as non-retryable and confirm via list_transactions. See
-  agentic-access/niural-agentic-access.yml.
-crosswalk_note: >-
-  No mcp/niural-tool-crosswalk.yml is emitted. A crosswalk records divergence
-  between a real MCP/GraphQL surface and the REST core; here the candidate tool
-  list is derived 1:1 from the OpenAPI, so a crosswalk would carry no information.
+agent_safety_note: initiate_transaction moves real money and Niural publishes no idempotency-key mechanism,
+  so a retried call is not deduplicated. Any agent binding must treat it as non-retryable and confirm
+  via list_transactions. See agentic-access/niural-agentic-access.yml.
+crosswalk_note: No mcp/niural-tool-crosswalk.yml is emitted. A crosswalk records divergence between a
+  real MCP/GraphQL surface and the REST core; here the candidate tool list is derived 1:1 from the OpenAPI,
+  so a crosswalk would carry no information.
+deployment:
+  mode: none
+  verified: derived
+  tools: 15
+  checked: '2026-08-12'
+  source: catalog MCP census

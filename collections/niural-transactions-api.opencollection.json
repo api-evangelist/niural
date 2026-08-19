@@ -1,0 +1,164 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Niural Public Transactions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get payment methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-sandbox.niural.com/payment-methods",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to fetch. Default is 20"
+              },
+              {
+                "name": "next_cursor",
+                "value": "",
+                "type": "query",
+                "description": "Get the next set of items from the cursor provided in the previous response if any"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by payment status"
+              },
+              {
+                "name": "is_primary",
+                "value": "",
+                "type": "query",
+                "description": "Filter by primary payment method"
+              }
+            ]
+          },
+          "docs": "Get a list of payment methods\n"
+        },
+        {
+          "info": {
+            "name": "Get a Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-sandbox.niural.com/transactions/:transaction-id",
+            "params": [
+              {
+                "name": "transaction-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the transaction to retrieve"
+              }
+            ]
+          },
+          "docs": "Get transaction details by contract ID\n"
+        },
+        {
+          "info": {
+            "name": "Update a pay by hash transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api-sandbox.niural.com/transactions/:transaction-id",
+            "params": [
+              {
+                "name": "transaction-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the transaction to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a pay by hash transaction\n"
+        },
+        {
+          "info": {
+            "name": "Get transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-sandbox.niural.com/transactions",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to fetch. Default is 20"
+              },
+              {
+                "name": "next_cursor",
+                "value": "",
+                "type": "query",
+                "description": "Get the next set of items from the cursor provided in the previous response if any"
+              },
+              {
+                "name": "transaction_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by transaction status"
+              }
+            ]
+          },
+          "docs": "Get a list of transactions\n"
+        },
+        {
+          "info": {
+            "name": "Initiate a new transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.niural.com/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a new transaction\n"
+        },
+        {
+          "info": {
+            "name": "Get estimates for a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.niural.com/transaction-estimates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Calculate estimated amount and fees for a transaction\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,664 @@
+openapi: 3.2.0
+info:
+  title: Niural Public Invoices API
+  version: '1.0'
+  description: The Niural Public API provides developers with access to Niural's core services, enabling seamless integration with third-party applications.
+servers:
+- url: https://api-sandbox.niural.com
+  description: Sandbox environment
+- url: https://api-live.niural.com
+  description: Live environment
+security:
+- BearerAuth: []
+tags:
+- name: Invoices
+paths:
+  /invoices:
+    post:
+      summary: Create an invoice
+      operationId: createInvoice
+      tags:
+      - Invoices
+      requestBody:
+        description: Invoice to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              title: InvoiceCreateRequest
+              properties:
+                contract_id:
+                  description: The unique identifier for the contract
+                  example: 123e4567-e89b-12d3-a456-426614174000
+                  title: Contract ID
+                  type: string
+                currency:
+                  anyOf:
+                  - title: FiatCurrency
+                    enum:
+                    - AFN
+                    - EUR
+                    - ALL
+                    - DZD
+                    - USD
+                    - AOA
+                    - XCD
+                    - AAD
+                    - ARS
+                    - AMD
+                    - AWG
+                    - AUD
+                    - AZN
+                    - BHD
+                    - BDT
+                    - BBD
+                    - BYN
+                    - BZD
+                    - XOF
+                    - BMD
+                    - BTN
+                    - BOB
+                    - BAM
+                    - BWP
+                    - NOK
+                    - BRL
+                    - BND
+                    - BGN
+                    - BIF
+                    - KHR
+                    - XAF
+                    - CAD
+                    - CVE
+                    - KYD
+                    - CLP
+                    - CNY
+                    - CNH
+                    - COP
+                    - KMF
+                    - NZD
+                    - CRC
+                    - HRK
+                    - CUP
+                    - ANG
+                    - CZK
+                    - CDF
+                    - DKK
+                    - DJF
+                    - DOP
+                    - EGP
+                    - ERN
+                    - ETB
+                    - FKP
+                    - FJD
+                    - XPF
+                    - GMD
+                    - GEL
+                    - GHS
+                    - GIP
+                    - GTQ
+                    - GBP
+                    - GNF
+                    - GYD
+                    - HTG
+                    - HNL
+                    - HKD
+                    - HUF
+                    - ISK
+                    - INR
+                    - IDR
+                    - IRR
+                    - IQD
+                    - ILS
+                    - JMD
+                    - JPY
+                    - JOD
+                    - KZT
+                    - KES
+                    - KWD
+                    - KGS
+                    - LAK
+                    - LBP
+                    - LSL
+                    - LRD
+                    - LYD
+                    - CHF
+                    - MOP
+                    - MGA
+                    - MWK
+                    - MYR
+                    - MVR
+                    - MRO
+                    - MUR
+                    - MXN
+                    - MDL
+                    - MNT
+                    - MAD
+                    - MZN
+                    - MMK
+                    - NAD
+                    - NPR
+                    - NIO
+                    - NGN
+                    - KPW
+                    - MKD
+                    - OMR
+                    - PKR
+                    - PAB
+                    - PGK
+                    - PYG
+                    - PEN
+                    - PHP
+                    - PLN
+                    - QAR
+                    - RON
+                    - RUB
+                    - RWF
+                    - SHP
+                    - WST
+                    - STD
+                    - SAR
+                    - RSD
+                    - SCR
+                    - SLL
+                    - SGD
+                    - SBD
+                    - SOS
+                    - ZAR
+                    - KRW
+                    - SSP
+                    - LKR
+                    - SDG
+                    - SRD
+                    - SZL
+                    - SEK
+                    - SYP
+                    - TWD
+                    - TJS
+                    - TZS
+                    - THB
+                    - BSD
+                    - TOP
+                    - TTD
+                    - TND
+                    - TRY
+                    - TMT
+                    - UGX
+                    - UAH
+                    - AED
+                    - UYU
+                    - UZS
+                    - VUV
+                    - VES
+                    - VND
+                    - YER
+                    - ZMW
+                    - ZWL
+                    type: string
+                  - title: CryptoToken
+                    enum:
+                    - USDT
+                    - USDC
+                    - USDS
+                    - MATIC
+                    - BUSD
+                    - DAI
+                    - WMATIC
+                    - AVAX
+                    - ETH
+                    - OP
+                    - BNB
+                    - USDGLO
+                    - USDTe
+                    - USDCe
+                    type: string
+                  description: The currency in which the invoice is issued
+                  example: USD
+                  title: Currency
+                invoice_title:
+                  description: The title of the invoice
+                  example: Consulting Services Invoice
+                  title: Invoice Title
+                  type: string
+                amount:
+                  description: The total amount of the invoice
+                  example: 1500
+                  title: Amount
+                  type: string
+                cycle_start_date:
+                  default: null
+                  description: The start date of the billing cycle
+                  example: '2023-01-01'
+                  title: Cycle Start Date
+                  format: date
+                  type:
+                  - string
+                  - 'null'
+                cycle_end_date:
+                  default: null
+                  description: The end date of the billing cycle
+                  example: '2023-01-31'
+                  title: Cycle End Date
+                  format: date
+                  type:
+                  - string
+                  - 'null'
+                issued_date:
+                  description: The date when the invoice was issued
+                  example: '2023-02-01'
+                  format: date
+                  title: Issued Date
+                  type: string
+                due_date:
+                  description: The date by which the invoice should be paid
+                  example: '2023-02-15'
+                  format: date
+                  title: Due Date
+                  type: string
+                tags:
+                  default: {}
+                  description: Additional data you would like to provide on the resource.
+                  example: {}
+                  title: Tags
+                  type:
+                  - object
+                  - 'null'
+              required:
+              - contract_id
+              - currency
+              - invoice_title
+              - amount
+              - issued_date
+              - due_date
+              type: object
+      responses:
+        '200':
+          description: Invoice created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/paths/~1invoices/get/responses/200/content/application~1json/schema/properties/data'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '422':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+    get:
+      summary: Get a list of invoices
+      operationId: listInvoices
+      tags:
+      - Invoices
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Number of items to fetch. Default is 20
+      - name: next_cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Get the next set of items from the cursor provided in the previous response if any
+      - name: contract_type
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter invoices by the type of contract
+      - name: contract_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter invoices by the contract ID
+      - name: invoice_status
+        in: query
+        required: false
+        schema:
+          title: InvoiceStatus
+          enum:
+          - DRAFT
+          - UNDER_APPROVAL
+          - PAYMENT_PENDING
+          - OVERDUE
+          - PAYMENT_PROCESSING
+          - PAYMENT_FAILED
+          - RECEIVED_BY_NIURAL
+          - PAYOUT_PROCESSING
+          - PAYOUT_FAILED
+          - PAID
+          - VOID
+          - REJECTED
+          type: string
+        description: Filter invoices by their status
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: InvoiceSingleResponse
+                    properties:
+                      invoice_id:
+                        description: The unique identifier for the invoice
+                        title: Invoice ID
+                        type: string
+                      currency:
+                        anyOf:
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                        description: The currency in which the invoice is issued
+                        title: Currency
+                      status:
+                        $ref: '#/paths/~1invoices/get/parameters/4/schema'
+                        description: The current status of the invoice
+                        title: Status
+                      total_amount:
+                        description: The total amount of the invoice
+                        title: Total Amount
+                        type: string
+                      issued_date:
+                        description: The date when the invoice was issued
+                        format: date
+                        title: Issued Date
+                        type: string
+                      due_date:
+                        description: The date by which the invoice should be paid
+                        format: date
+                        title: Due Date
+                        type: string
+                      invoice_items:
+                        default: []
+                        description: The list of items included in the invoice
+                        items:
+                          title: GeneralInvoiceItemDBModel
+                          properties:
+                            description:
+                              title: Description
+                              type: string
+                            quantity:
+                              default: 1
+                              title: Quantity
+                              type: number
+                              exclusiveMinimum: 0
+                            item_code:
+                              default: null
+                              title: InvoiceItemCode
+                              enum:
+                              - NIURAL_PLATFORM_FEE
+                              - NIURAL_ARMOR_SECURITY_DEPOSIT
+                              - SELF_CONTRACT
+                              - NIURAL_CONTRACT
+                              - NIURAL_ARMOR
+                              - CONTRACT_CREATION_FEE
+                              - EMPLOYER_OF_RECORD
+                              - NIURAL_PAY_FEE
+                              - BENEFIT_MASTER_INVOICE
+                              - BACKGROUND_CHECK
+                              - SIGNING_BONUS
+                              - EOR_SECURITY_DEPOSIT
+                              - EOR_SALES_TAX
+                              - SUTA_TAX_RECONC
+                              - FUTA_TAX_RECONC
+                              - EXTRA_PAYMENT
+                              - CREDIT_REDUCTION_TAX
+                              - SDI_TAX
+                              - PMFL_TAX
+                              - EXPENSE_TAX
+                              - PF_CONTRIBUTION
+                              - EOR_EMPLOYEE_SALARY
+                              - EOR_EMPLOYER_TAX
+                              - EOR_ADDITIONAL_COMPENSATION
+                              - EOR_FIXED_ALLOWANCES
+                              - EOR_BENEFITS
+                              - EOR_ADJUSTMENTS
+                              - EOR_HEALTH_BENEFIT_MANAGEMENT_FEE
+                              - EOR_RETIREMENT_BENEFITS_MANAGEMENT_FEE
+                              - EOR_BENEFITS_MANAGEMENT_FEE
+                              - EOR_EXPENSE
+                              - PAY_ON_DEMAND
+                              type:
+                              - string
+                              - 'null'
+                            cost_per_unit:
+                              title: Cost Per Unit
+                              type: number
+                            discount_per_unit:
+                              default: 0
+                              minimum: 0
+                              title: Discount Per Unit
+                              type: number
+                            total_discount:
+                              default: 0
+                              minimum: 0
+                              title: Total Discount
+                              type: number
+                            total_amount:
+                              default: 0
+                              minimum: 0
+                              title: Total Amount
+                              type: number
+                            currency:
+                              anyOf:
+                              - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                              - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                              title: Currency
+                            references:
+                              default: []
+                              title: References
+                              items:
+                                type: object
+                              type:
+                              - array
+                              - 'null'
+                            breakdown:
+                              default: null
+                              title: Breakdown
+                              type:
+                              - object
+                              - 'null'
+                            invoice_item_pdf:
+                              default: null
+                              $ref: '#/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data/properties/contract_document'
+                          required:
+                          - description
+                          - cost_per_unit
+                          - currency
+                          type: object
+                        title: Invoice Items
+                        type: array
+                      payer_id:
+                        description: The unique identifier for the payer
+                        title: Payer ID
+                        type: string
+                      payer_name:
+                        description: The name of the payer
+                        title: Payer Name
+                        type: string
+                      payer_email:
+                        description: The email address of the payer
+                        format: email
+                        title: Payer Email
+                        type: string
+                      payee_id:
+                        default: null
+                        description: The unique identifier for the payee
+                        title: Payee ID
+                        type:
+                        - string
+                        - 'null'
+                      payee_name:
+                        default: null
+                        description: The name of the payee
+                        title: Payee Name
+                        type:
+                        - string
+                        - 'null'
+                      payee_email:
+                        default: null
+                        description: The email address of the payee
+                        title: Payee Email
+                        format: email
+                        type:
+                        - string
+                        - 'null'
+                      invoice_title:
+                        default: null
+                        description: The title of the invoice
+                        title: Invoice Title
+                        type:
+                        - string
+                        - 'null'
+                      contract_id:
+                        default: null
+                        description: The unique identifier for the contract
+                        title: Contract ID
+                        type:
+                        - string
+                        - 'null'
+                      contractor_id:
+                        default: null
+                        description: The unique identifier for the contractor
+                        title: Contractor ID
+                        type:
+                        - string
+                        - 'null'
+                      cycle_start_date:
+                        default: null
+                        description: The start date of the billing cycle
+                        title: Cycle Start Date
+                        format: date
+                        type:
+                        - string
+                        - 'null'
+                      cycle_end_date:
+                        default: null
+                        description: The end date of the billing cycle
+                        title: Cycle End Date
+                        format: date
+                        type:
+                        - string
+                        - 'null'
+                      tags:
+                        default: {}
+                        description: Additional data provided on the resource during creation.
+                        example: {}
+                        title: Tags
+                        type:
+                        - object
+                        - 'null'
+                    required:
+                    - invoice_id
+                    - currency
+                    - status
+                    - total_amount
+                    - issued_date
+                    - due_date
+                    - payer_id
+                    - payer_name
+                    - payer_email
+                    type: object
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /invoices/{invoice-id}:
+    get:
+      summary: Get a single invoice
+      operationId: getInvoice
+      tags:
+      - Invoices
+      parameters:
+      - name: invoice-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the invoice to retrieve
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/paths/~1invoices/get/responses/200/content/application~1json/schema/properties/data'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+components:
+  responses:
+    NotFoundResponse:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    BadRequestResponse:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    ValidationErrorResponse:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+              meta:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                description: Additional information of validation errors
+    ServerErrorResponse:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

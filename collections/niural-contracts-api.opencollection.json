@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Niural Public Contracts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-sandbox.niural.com/contracts/:contract-id",
+            "params": [
+              {
+                "name": "contract-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the contract to retrieve"
+              }
+            ]
+          },
+          "docs": "Get contract details by contract ID\n"
+        },
+        {
+          "info": {
+            "name": "Get contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-sandbox.niural.com/contracts",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to fetch. Default is 20"
+              },
+              {
+                "name": "next_cursor",
+                "value": "",
+                "type": "query",
+                "description": "Get the next set of items from the cursor provided in the previous response if any"
+              },
+              {
+                "name": "contract_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type"
+              },
+              {
+                "name": "contractor_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contractor ID"
+              },
+              {
+                "name": "contract_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract status"
+              }
+            ]
+          },
+          "docs": "Get a list of contracts\n"
+        },
+        {
+          "info": {
+            "name": "Create a new contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.niural.com/contracts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new contract\n"
+        },
+        {
+          "info": {
+            "name": "Invite a Contractor to Sign a Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api-sandbox.niural.com/contracts/:contract-id/invite-contractor",
+            "params": [
+              {
+                "name": "contract-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the contract to send invitation for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite a contractor to sign a contract by contract ID\n"
+        },
+        {
+          "info": {
+            "name": "Sign a Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api-sandbox.niural.com/contracts/:contract-id/sign",
+            "params": [
+              {
+                "name": "contract-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the contract to sign"
+              }
+            ]
+          },
+          "docs": "Sign a contract by employer\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,33 @@
+{
+  "provider": "niural",
+  "sources": [
+    "niural-authentication-api-openapi.yml",
+    "niural-contracts-api-openapi.yml",
+    "niural-invoices-api-openapi.yml",
+    "niural-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "niural-authentication-api-openapi.yml",
+    "niural-contracts-api-openapi.yml",
+    "niural-invoices-api-openapi.yml",
+    "niural-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "niural-contracts-api-openapi.yml: dangling $ref: #/paths/~1contracts~1%7Bcontract-id%7D/get/responses/200/content/application~1json/schema/properties/data/oneOf/1/properties/contract_type",
+    "niural-contracts-api-openapi.yml: dangling $ref: #/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data",
+    "niural-contracts-api-openapi.yml: dangling $ref: #/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data/properties/contract_document",
+    "niural-invoices-api-openapi.yml: dangling $ref: #/paths/~1contracts~1%7Bcontract-id%7D~1sign/patch/responses/200/content/application~1json/schema/properties/data/properties/contract_document",
+    "niural-transactions-api-openapi.yml: dangling $ref: #/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0",
+    "niural-transactions-api-openapi.yml: dangling $ref: #/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1"
+  ],
+  "warnings": [],
+  "notes": [
+    "niural-authentication-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "niural-contracts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "niural-invoices-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "niural-transactions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

@@ -1,0 +1,677 @@
+openapi: 3.2.0
+info:
+  title: Niural Public Transactions API
+  version: '1.0'
+  description: The Niural Public API provides developers with access to Niural's core services, enabling seamless integration with third-party applications.
+servers:
+- url: https://api-sandbox.niural.com
+  description: Sandbox environment
+- url: https://api-live.niural.com
+  description: Live environment
+security:
+- BearerAuth: []
+tags:
+- name: Transactions
+paths:
+  /payment-methods:
+    get:
+      tags:
+      - Transactions
+      summary: Get payment methods
+      description: 'Get a list of payment methods
+
+        '
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Number of items to fetch. Default is 20
+      - name: next_cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Get the next set of items from the cursor provided in the previous response if any
+      - name: status
+        in: query
+        required: false
+        schema:
+          title: NiuralPaymentMethodStatus
+          enum:
+          - PENDING_VERIFICATION
+          - VALIDATED
+          - VERIFIED
+          - VERIFICATION_FAILED
+          type: string
+        description: Filter by payment status
+      - name: is_primary
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Filter by primary payment method
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: PaymentMethodsListResponse
+                    properties:
+                      items:
+                        default: []
+                        items:
+                          title: PaymentMethodResponse
+                          properties:
+                            payment_account_id:
+                              description: The unique identifier for the payment method.
+                              title: Payment Method ID
+                              type: string
+                            account_nickname:
+                              default: null
+                              description: A nickname for the payment method.
+                              title: Account Nickname
+                              type:
+                              - string
+                              - 'null'
+                            account_number_last_4:
+                              description: The last 4 digits of the account number.
+                              title: Account Number Last 4
+                              type: string
+                            routing_number:
+                              description: The routing number associated with the payment method.
+                              title: Routing Number
+                              type: string
+                            account_holder_name:
+                              description: The name of the account holder.
+                              title: Account Holder Name
+                              type: string
+                            country:
+                              description: The country in which the payment method is registered.
+                              title: Country
+                              type: string
+                            status:
+                              $ref: '#/paths/~1payment-methods/get/parameters/2/schema'
+                              description: The current status of the payment method.
+                              title: Status
+                            is_primary:
+                              description: Indicates whether the payment method is the primary method for the user.
+                              title: Is Primary
+                              type: boolean
+                            created_date:
+                              description: The date and time when the payment method was created.
+                              format: date-time
+                              title: Created Date
+                              type: string
+                            updated_date:
+                              description: The date and time when the payment method was last updated.
+                              format: date-time
+                              title: Updated Date
+                              type: string
+                          required:
+                          - payment_account_id
+                          - account_number_last_4
+                          - routing_number
+                          - account_holder_name
+                          - country
+                          - status
+                          - is_primary
+                          - created_date
+                          - updated_date
+                          type: object
+                        title: Items
+                        type: array
+                      next_cursor:
+                        default: null
+                        title: Next Cursor
+                        type:
+                        - string
+                        - 'null'
+                    type: object
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /transactions/{transaction-id}:
+    get:
+      tags:
+      - Transactions
+      summary: Get a Transaction
+      description: 'Get transaction details by contract ID
+
+        '
+      parameters:
+      - name: transaction-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the transaction to retrieve
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/paths/~1transactions/post/responses/200/content/application~1json/schema/properties/data'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+    patch:
+      tags:
+      - Transactions
+      summary: Update a pay by hash transaction
+      description: 'Update a pay by hash transaction
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: TransactionUpdateRequestModel
+              properties:
+                payment_hash:
+                  description: The hash of the payment transaction on the blockchain.
+                  maxLength: 66
+                  minLength: 66
+                  pattern: ^0x[a-fA-F0-9]{64}$
+                  title: Payment Hash
+                  type: string
+                chain_id:
+                  description: The ID of the blockchain network where the transaction is recorded.
+                  title: Chain ID
+                  type: integer
+              required:
+              - payment_hash
+              - chain_id
+              type: object
+        required: true
+      parameters:
+      - name: transaction-id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the transaction to update
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/paths/~1transactions/post/responses/200/content/application~1json/schema/properties/data'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /transactions:
+    post:
+      tags:
+      - Transactions
+      summary: Initiate a new transaction
+      description: 'Initiate a new transaction
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: TransactionRequest
+              properties:
+                transfer_type:
+                  description: The type of transfer to be made.
+                  title: Transfer Type
+                  enum:
+                  - ACH
+                  - WIRE
+                  - CRYPTO
+                  - PAY_BY_HASH
+                  type: string
+                invoice_ids:
+                  description: A list of invoice ids to pay.
+                  items:
+                    type: string
+                  minItems: 1
+                  title: Invoices
+                  type: array
+                crypto_payment_details:
+                  default: null
+                  description: Details of the payment if the transfer type is Pay by Hash.
+                  title: Crypto Payment Details
+                  properties:
+                    token:
+                      $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                    chain_id:
+                      title: Chain Id
+                      type:
+                      - integer
+                      - 'null'
+                  required:
+                  - token
+                  - chain_id
+                  type:
+                  - object
+                  - 'null'
+                payment_account_id:
+                  default: null
+                  description: The ID of the payment account. Required for ACH transfer type. If not provided, we'll attempt to use the primary account by default.
+                  title: Payment Account ID
+                  type:
+                  - string
+                  - 'null'
+                tags:
+                  default: {}
+                  description: Additional data you would like to provide on the resource.
+                  example: {}
+                  title: Tags
+                  type:
+                  - object
+                  - 'null'
+              required:
+              - transfer_type
+              - invoice_ids
+              type: object
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: TransactionResponseModel
+                    properties:
+                      transaction_id:
+                        description: The unique identifier for the transaction.
+                        title: Transaction ID
+                        type: string
+                      sub_total_amount:
+                        description: The subtotal amount of the transaction before fees.
+                        title: Sub Total Amount
+                        type: string
+                      fee_amount:
+                        description: The total fee amount applied to the transaction.
+                        title: Fee Amount
+                        type: string
+                      fee_breakdown:
+                        default: null
+                        description: A detailed breakdown of the fees applied to the transaction.
+                        title: Fee Breakdown
+                        items:
+                          title: Fee
+                          properties:
+                            fee_type:
+                              default: null
+                              title: TransactionFeeType
+                              enum:
+                              - ACH_PULL_PROCESSING_FEES
+                              - WIRE_INCOMING_PROCESSING_FEES
+                              - ON_RAMP_FEE
+                              - OFF_RAMP_FEE
+                              - CRYPTO_GAS_FEE
+                              - ACH_OUTGOING_FEE
+                              - WIRE_OUTGOING_FEE
+                              - SWAP_FEE
+                              type:
+                              - string
+                              - 'null'
+                            description:
+                              title: Description
+                              type: string
+                            amount:
+                              title: Amount
+                              type: string
+                          required:
+                          - description
+                          - amount
+                          type: object
+                        type:
+                        - array
+                        - 'null'
+                      total_amount:
+                        description: The total amount of the transaction including fees.
+                        title: Total Amount
+                        type: string
+                      transaction_status:
+                        $ref: '#/paths/~1transactions/get/parameters/2/schema'
+                        description: The current status of the transaction.
+                        title: Transaction Status
+                      transaction_currency:
+                        anyOf:
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                        description: The currency in which the transaction is made.
+                        title: Transaction Currency
+                      associated_invoices:
+                        default: []
+                        description: A list of invoice IDs associated with the transaction.
+                        items:
+                          type: string
+                        title: Associated Invoices
+                        type: array
+                      associated_payrolls:
+                        default: []
+                        description: A list of payroll IDs associated with the transaction.
+                        items:
+                          type: string
+                        title: Associated Payrolls
+                        type: array
+                      transaction_created_date:
+                        description: The date and time when the transaction was created.
+                        format: date-time
+                        title: Transaction Created Date
+                        type: string
+                      transaction_settlement_date:
+                        default: null
+                        description: The date and time when the transaction is expected to be settled.
+                        title: Transaction Settlement Date
+                        format: date-time
+                        type:
+                        - string
+                        - 'null'
+                      tags:
+                        default: {}
+                        description: Additional data provided on the resource during creation.
+                        example: {}
+                        title: Tags
+                        type:
+                        - object
+                        - 'null'
+                    required:
+                    - transaction_id
+                    - sub_total_amount
+                    - fee_amount
+                    - total_amount
+                    - transaction_status
+                    - transaction_currency
+                    - transaction_created_date
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '422':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+    get:
+      tags:
+      - Transactions
+      summary: Get transactions
+      description: 'Get a list of transactions
+
+        '
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Number of items to fetch. Default is 20
+      - name: next_cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Get the next set of items from the cursor provided in the previous response if any
+      - name: transaction_status
+        in: query
+        required: false
+        schema:
+          title: TransactionStatus
+          enum:
+          - PENDING
+          - PROCESSING
+          - PAID
+          - FAILED
+          - INSUFFICIENT_PAYMENT
+          - VOID
+          type: string
+        description: Filter by transaction status
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: TransactionListResponse
+                    properties:
+                      items:
+                        default: []
+                        items:
+                          $ref: '#/paths/~1transactions/post/responses/200/content/application~1json/schema/properties/data'
+                        title: Items
+                        type: array
+                      next_cursor:
+                        default: null
+                        title: Next Cursor
+                        type:
+                        - string
+                        - 'null'
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+  /transaction-estimates:
+    post:
+      tags:
+      - Transactions
+      summary: Get estimates for a transaction
+      description: 'Calculate estimated amount and fees for a transaction
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: TransactionEstimatesRequest
+              properties:
+                transfer_type:
+                  $ref: '#/paths/~1transactions/post/requestBody/content/application~1json/schema/properties/transfer_type'
+                  description: The type of transfer to be made.
+                  title: Transfer Type
+                invoice_ids:
+                  description: A list of invoice ids to pay.
+                  items:
+                    type: string
+                  minItems: 1
+                  title: Invoices
+                  type: array
+                crypto_payment_details:
+                  default: null
+                  description: Details of the payment if the transfer type is Pay by Hash.
+                  title: Crypto Payment Details
+                  $ref: '#/paths/~1transactions/post/requestBody/content/application~1json/schema/properties/crypto_payment_details'
+              required:
+              - transfer_type
+              - invoice_ids
+              type: object
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: TransactionEstimates
+                    properties:
+                      transaction_currency:
+                        anyOf:
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                        - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                        title: Transaction Currency
+                      invoices:
+                        items:
+                          title: InvoicePaymentDetails
+                          properties:
+                            invoice_id:
+                              title: Invoice Id
+                              type: string
+                            conversions:
+                              items:
+                                title: InvoiceConversionDetails
+                                properties:
+                                  invoice_currency:
+                                    anyOf:
+                                    - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                                    - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                                    title: Invoice Currency
+                                  target_currency:
+                                    anyOf:
+                                    - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/0'
+                                    - $ref: '#/paths/~1invoices/post/requestBody/content/application~1json/schema/properties/currency/anyOf/1'
+                                    title: Target Currency
+                                  exchange_rate:
+                                    title: Exchange Rate
+                                    type: string
+                                  invoice_amount:
+                                    title: Invoice Amount
+                                    type: string
+                                  target_amount:
+                                    title: Target Amount
+                                    type: string
+                                required:
+                                - invoice_currency
+                                - target_currency
+                                - exchange_rate
+                                - invoice_amount
+                                - target_amount
+                                type: object
+                              title: Conversions
+                              type: array
+                            invoice_fees:
+                              default: []
+                              items:
+                                $ref: '#/paths/~1transactions/post/responses/200/content/application~1json/schema/properties/data/properties/fee_breakdown/items'
+                              title: Invoice Fees
+                              type: array
+                            invoice_sub_total_amount:
+                              default: '0'
+                              title: Invoice Sub Total Amount
+                              type: string
+                            invoice_grand_total_amount:
+                              default: '0'
+                              title: Invoice Grand Total Amount
+                              type: string
+                          required:
+                          - invoice_id
+                          - conversions
+                          type: object
+                        title: Invoices
+                        type: array
+                      sub_total_amount:
+                        default: '0'
+                        title: Sub Total Amount
+                        type: string
+                      fees_breakdown:
+                        items:
+                          $ref: '#/paths/~1transactions/post/responses/200/content/application~1json/schema/properties/data/properties/fee_breakdown/items'
+                        title: Fees Breakdown
+                        type: array
+                      total_fees:
+                        default: '0'
+                        title: Total Fees
+                        type: string
+                      total_amount:
+                        default: '0'
+                        title: Total Amount
+                        type: string
+                    required:
+                    - transaction_currency
+                    - invoices
+                    - fees_breakdown
+                    type: object
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '422':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '500':
+          $ref: '#/components/responses/ServerErrorResponse'
+components:
+  responses:
+    ValidationErrorResponse:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+              meta:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                description: Additional information of validation errors
+    BadRequestResponse:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    NotFoundResponse:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    ServerErrorResponse:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
