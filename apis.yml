@@ -10,6 +10,18 @@ description: >-
   served from separate sandbox and live hosts, authenticated with a client-credential exchange that
   returns a bearer JWT, with cursor pagination, a 25 requests/second rate limit, and three
   HMAC-SHA256-signed webhook events. Payroll, PEO, EOR and benefits are not exposed on the public API.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.niural.com/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/niural/refs/heads/main/apis.yml
 x-type: company
