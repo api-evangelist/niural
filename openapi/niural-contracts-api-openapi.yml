@@ -18,9 +18,7 @@ paths:
       tags:
       - Contracts
       summary: Get a Contract
-      description: 'Get contract details by contract ID
-
-        '
+      description: Get contract details by contract ID
       parameters:
       - name: contract-id
         in: path
@@ -185,14 +183,13 @@ paths:
           $ref: '#/components/responses/NotFoundResponse'
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
+      operationId: getContractsByContractId
+      x-operation-id-source: derived
   /contracts:
     post:
       tags:
       - Contracts
       summary: Create a new contract
-      description: 'Create a new contract
-
-        '
       requestBody:
         content:
           application/json:
@@ -651,13 +648,13 @@ paths:
           $ref: '#/components/responses/ValidationErrorResponse'
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
+      operationId: postContracts
+      x-operation-id-source: derived
     get:
       tags:
       - Contracts
       summary: Get contracts
-      description: 'Get a list of contracts
-
-        '
+      description: Get a list of contracts
       parameters:
       - name: limit
         in: query
@@ -856,14 +853,14 @@ paths:
           $ref: '#/components/responses/BadRequestResponse'
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
+      operationId: getContracts
+      x-operation-id-source: derived
   /contracts/{contract-id}/invite-contractor:
     patch:
       tags:
       - Contracts
       summary: Invite a Contractor to Sign a Contract
-      description: 'Invite a contractor to sign a contract by contract ID
-
-        '
+      description: Invite a contractor to sign a contract by contract ID
       requestBody:
         content:
           application/json:
@@ -903,14 +900,14 @@ paths:
           $ref: '#/components/responses/NotFoundResponse'
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
+      operationId: patchContractsByContractIdInviteContractor
+      x-operation-id-source: derived
   /contracts/{contract-id}/sign:
     patch:
       tags:
       - Contracts
       summary: Sign a Contract
-      description: 'Sign a contract by employer
-
-        '
+      description: Sign a contract by employer
       parameters:
       - name: contract-id
         in: path
@@ -1140,8 +1137,23 @@ paths:
           $ref: '#/components/responses/NotFoundResponse'
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
+      operationId: patchContractsByContractIdSign
+      x-operation-id-source: derived
 components:
   responses:
+    BadRequestResponse:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
     ValidationErrorResponse:
       description: Validation error
       content:
@@ -1161,34 +1173,21 @@ components:
                   errors:
                     type: object
                 description: Additional information of validation errors
-    NotFoundResponse:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error_code:
-                type: string
-                description: Error code
-              message:
-                type: string
-                description: Error message
-    BadRequestResponse:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error_code:
-                type: string
-                description: Error code
-              message:
-                type: string
-                description: Error message
     ServerErrorResponse:
       description: Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    NotFoundResponse:
+      description: Resource not found
       content:
         application/json:
           schema:

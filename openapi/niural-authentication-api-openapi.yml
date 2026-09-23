@@ -18,9 +18,7 @@ paths:
       tags:
       - Authentication
       summary: Obtain Auth token
-      description: 'Exchange the client credentials (ID and secret) for an auth token. Use the auth token in the Authorization header for requests to other endpoints.
-
-        '
+      description: Exchange the client credentials (ID and secret) for an auth token. Use the auth token in the Authorization header for requests to other endpoints.
       requestBody:
         content:
           application/json:
@@ -77,8 +75,23 @@ paths:
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
       security: []
+      operationId: postAuthenticate
+      x-operation-id-source: derived
 components:
   responses:
+    BadRequestResponse:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
     ServerErrorResponse:
       description: Server error
       content:
@@ -111,19 +124,6 @@ components:
                   errors:
                     type: object
                 description: Additional information of validation errors
-    BadRequestResponse:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error_code:
-                type: string
-                description: Error code
-              message:
-                type: string
-                description: Error message
   securitySchemes:
     BearerAuth:
       type: http

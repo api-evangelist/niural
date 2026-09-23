@@ -18,9 +18,7 @@ paths:
       tags:
       - Transactions
       summary: Get payment methods
-      description: 'Get a list of payment methods
-
-        '
+      description: Get a list of payment methods
       parameters:
       - name: limit
         in: query
@@ -135,14 +133,14 @@ paths:
                     type: object
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
+      operationId: getPaymentMethods
+      x-operation-id-source: derived
   /transactions/{transaction-id}:
     get:
       tags:
       - Transactions
       summary: Get a Transaction
-      description: 'Get transaction details by contract ID
-
-        '
+      description: Get transaction details by contract ID
       parameters:
       - name: transaction-id
         in: path
@@ -166,13 +164,12 @@ paths:
           $ref: '#/components/responses/NotFoundResponse'
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
+      operationId: getTransactionsByTransactionId
+      x-operation-id-source: derived
     patch:
       tags:
       - Transactions
       summary: Update a pay by hash transaction
-      description: 'Update a pay by hash transaction
-
-        '
       requestBody:
         content:
           application/json:
@@ -218,14 +215,13 @@ paths:
           $ref: '#/components/responses/NotFoundResponse'
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
+      operationId: patchTransactionsByTransactionId
+      x-operation-id-source: derived
   /transactions:
     post:
       tags:
       - Transactions
       summary: Initiate a new transaction
-      description: 'Initiate a new transaction
-
-        '
       requestBody:
         content:
           application/json:
@@ -408,13 +404,13 @@ paths:
           $ref: '#/components/responses/ValidationErrorResponse'
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
+      operationId: postTransactions
+      x-operation-id-source: derived
     get:
       tags:
       - Transactions
       summary: Get transactions
-      description: 'Get a list of transactions
-
-        '
+      description: Get a list of transactions
       parameters:
       - name: limit
         in: query
@@ -470,14 +466,14 @@ paths:
           $ref: '#/components/responses/BadRequestResponse'
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
+      operationId: getTransactions
+      x-operation-id-source: derived
   /transaction-estimates:
     post:
       tags:
       - Transactions
       summary: Get estimates for a transaction
-      description: 'Calculate estimated amount and fees for a transaction
-
-        '
+      description: Calculate estimated amount and fees for a transaction
       requestBody:
         content:
           application/json:
@@ -610,8 +606,23 @@ paths:
           $ref: '#/components/responses/ValidationErrorResponse'
         '500':
           $ref: '#/components/responses/ServerErrorResponse'
+      operationId: postTransactionEstimates
+      x-operation-id-source: derived
 components:
   responses:
+    BadRequestResponse:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
     ValidationErrorResponse:
       description: Validation error
       content:
@@ -631,8 +642,8 @@ components:
                   errors:
                     type: object
                 description: Additional information of validation errors
-    BadRequestResponse:
-      description: Invalid request
+    ServerErrorResponse:
+      description: Server error
       content:
         application/json:
           schema:
@@ -646,19 +657,6 @@ components:
                 description: Error message
     NotFoundResponse:
       description: Resource not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error_code:
-                type: string
-                description: Error code
-              message:
-                type: string
-                description: Error message
-    ServerErrorResponse:
-      description: Server error
       content:
         application/json:
           schema:
