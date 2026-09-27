@@ -79,6 +79,25 @@ paths:
       x-operation-id-source: derived
 components:
   responses:
+    ValidationErrorResponse:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+              meta:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                description: Additional information of validation errors
     BadRequestResponse:
       description: Invalid request
       content:
@@ -105,25 +124,6 @@ components:
               message:
                 type: string
                 description: Error message
-    ValidationErrorResponse:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error_code:
-                type: string
-                description: Error code
-              message:
-                type: string
-                description: Error message
-              meta:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                description: Additional information of validation errors
   securitySchemes:
     BearerAuth:
       type: http

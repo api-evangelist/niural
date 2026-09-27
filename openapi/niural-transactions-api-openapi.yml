@@ -610,8 +610,8 @@ paths:
       x-operation-id-source: derived
 components:
   responses:
-    BadRequestResponse:
-      description: Invalid request
+    ServerErrorResponse:
+      description: Server error
       content:
         application/json:
           schema:
@@ -642,8 +642,8 @@ components:
                   errors:
                     type: object
                 description: Additional information of validation errors
-    ServerErrorResponse:
-      description: Server error
+    BadRequestResponse:
+      description: Invalid request
       content:
         application/json:
           schema:
