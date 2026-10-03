@@ -610,19 +610,6 @@ paths:
       x-operation-id-source: derived
 components:
   responses:
-    ServerErrorResponse:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error_code:
-                type: string
-                description: Error code
-              message:
-                type: string
-                description: Error message
     ValidationErrorResponse:
       description: Validation error
       content:
@@ -657,6 +644,19 @@ components:
                 description: Error message
     NotFoundResponse:
       description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    ServerErrorResponse:
+      description: Server error
       content:
         application/json:
           schema:

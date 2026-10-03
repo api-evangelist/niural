@@ -599,19 +599,6 @@ paths:
           $ref: '#/components/responses/ServerErrorResponse'
 components:
   responses:
-    ServerErrorResponse:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error_code:
-                type: string
-                description: Error code
-              message:
-                type: string
-                description: Error message
     ValidationErrorResponse:
       description: Validation error
       content:
@@ -631,6 +618,19 @@ components:
                   errors:
                     type: object
                 description: Additional information of validation errors
+    NotFoundResponse:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
     BadRequestResponse:
       description: Invalid request
       content:
@@ -644,8 +644,8 @@ components:
               message:
                 type: string
                 description: Error message
-    NotFoundResponse:
-      description: Resource not found
+    ServerErrorResponse:
+      description: Server error
       content:
         application/json:
           schema:
