@@ -618,19 +618,6 @@ components:
                   errors:
                     type: object
                 description: Additional information of validation errors
-    NotFoundResponse:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error_code:
-                type: string
-                description: Error code
-              message:
-                type: string
-                description: Error message
     BadRequestResponse:
       description: Invalid request
       content:
@@ -646,6 +633,19 @@ components:
                 description: Error message
     ServerErrorResponse:
       description: Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                description: Error code
+              message:
+                type: string
+                description: Error message
+    NotFoundResponse:
+      description: Resource not found
       content:
         application/json:
           schema:

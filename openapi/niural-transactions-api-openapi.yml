@@ -642,8 +642,8 @@ components:
               message:
                 type: string
                 description: Error message
-    NotFoundResponse:
-      description: Resource not found
+    ServerErrorResponse:
+      description: Server error
       content:
         application/json:
           schema:
@@ -655,8 +655,8 @@ components:
               message:
                 type: string
                 description: Error message
-    ServerErrorResponse:
-      description: Server error
+    NotFoundResponse:
+      description: Resource not found
       content:
         application/json:
           schema:
