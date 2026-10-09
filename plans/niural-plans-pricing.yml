@@ -70,3 +70,68 @@ plans:
   description: Global payroll for existing entities.
   entries:
   - {label: Per employee, name: per_employee, type: recurring, metric: employee_month, price: "from $29/employee/month", userMultiplied: true}
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  - subscription
+  units:
+  - period
+  plans:
+  - name: US Payroll — Standard
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    - period
+    periods: []
+  - name: US Payroll — Enterprise
+    access: negotiated
+    model: negotiated
+    model_how: stated
+    units: []
+    periods: []
+  - name: US PEO Basic
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    periods: []
+  - name: US PEO Plus
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    periods: []
+  - name: Contractor Management
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    periods: []
+  - name: Contractor of Record (Niural Armor)
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    periods: []
+  - name: Employer of Record (EOR)
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    periods: []
+  - name: Global Payroll
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    periods: []
