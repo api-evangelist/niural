@@ -64,5 +64,147 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Niural is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/niural_stock/
+Niural is a US-headquartered global workforce platform that unifies US payroll, PEO, employer of record (EOR), agent of record (AOR), contractor management and cross-border contractor payments in 150+ countries inside a single system, with an AI layer (EMMA) that orchestrates payroll, compliance and expense approvals. Its public developer surface — the Niural Public API, documented on ReadMe at docs.niural.com — is narrower than the product: an OpenAPI 3.0.3 contract of 15 operations across four resources (authentication, pay-on-demand contractor contracts, invoices and transactions), served from separate sandbox and live hosts, authenticated with a client-credential exchange that returns a bearer JWT, with cursor pagination, a 25 requests/second rate limit, and three HMAC-SHA256-signed webhook events. Payroll, PEO, EOR and benefits are not exposed on the public API.
+
+**Areas:** Company · Payroll · Human Resources · Employer of Record · Contractor Management · Global Payments · Invoicing · Compliance · Fintech
+
+## Niural on APIs.io
+
+Everything profiled for Niural is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/niural/](https://apis.io/providers/niural/)** — or go straight to one of the APIs or properties below.
+
+### APIs (4)
+
+- [Niural Authentication API](https://apis.io/apis/niural/niural-authentication-api/) — The Authentication API from Niural — 1 operation(s) for authentication.
+- [Niural Contracts API](https://apis.io/apis/niural/niural-contracts-api/) — The Contracts API from Niural — 4 operation(s) for contracts.
+- [Niural Invoices API](https://apis.io/apis/niural/niural-invoices-api/) — The Invoices API from Niural — 2 operation(s) for invoices.
+- [Niural Transactions API](https://apis.io/apis/niural/niural-transactions-api/) — The Transactions API from Niural — 4 operation(s) for transactions.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Niural Webhooks](https://apis.io/asyncapis/niural/niural-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [niural](https://apis.io/servers/niural/niural/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Niural Agentic Access](https://apis.io/agentic-access/niural/niural-agentic-access/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [Niural Public Authentication API](https://apis.io/collections/niural/open-niural-authentication-api/)
+- [Niural Public Contracts API](https://apis.io/collections/niural/open-niural-contracts-api/)
+- [Niural Public Invoices API](https://apis.io/collections/niural/open-niural-invoices-api/)
+- [Niural Public Transactions API](https://apis.io/collections/niural/open-niural-transactions-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Niural Public Api Overlay](https://apis.io/overlays/niural/niural-public-api-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Niural Authentication](https://apis.io/security/niural/niural-authentication/)
+- [Niural Domain Security](https://apis.io/security/niural/niural-domain-security/)
+- [Niural Trust Center](https://apis.io/security/niural/niural-trust-center/)
+- [Niural Vulnerability Disclosure](https://apis.io/security/niural/niural-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Niural Plans Pricing](https://apis.io/plans/niural/niural-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Niural Rate Limits](https://apis.io/rate-limits/niural/niural-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.niural.com/)
+- [Documentation](https://docs.niural.com/)
+- [Getting started](https://docs.niural.com/docs/get-started)
+- [API reference](https://docs.niural.com/reference/post_authenticate)
+- [Pricing](https://www.niural.com/pricing)
+- [Sign up](https://app.niural.com/auth/employer/register)
+- [Support](https://help.niural.com/)
+- [Blog](https://www.niural.com/blogs)
+- [Compliance](https://trust.niural.com/)
+- [Terms of service](https://www.niural.com/legal/customer-terms-of-service)
+- [Privacy policy](https://www.niural.com/legal/privacy-policy)
+- [GitHub](https://github.com/Niural)
+
+## API Evangelist rating
+
+**Kin Score 53.9** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 55.1 |
+| Contract governance | 4.5 |
+| Operational transparency | 57.9 |
+| Developer ergonomics | 41.1 |
+| Access clarity | 77.6 |
+
+**Agent readiness 32.2** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.4** — Employment & Payroll
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/niural/](https://apis.io/providers/niural/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Niural: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/niural/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
